@@ -26,7 +26,6 @@
 			]
 		},
 		"production": {
-			"name": "my-llc",
 			"d1_databases": [
 				{
 					"binding": "DB",
