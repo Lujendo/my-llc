@@ -175,7 +175,7 @@ src/worker/db/         Schema + seed SQL
 - Error handling (no stack traces leaked)
 
 ### ⚠️ Staging Only (Change for Production)
-- JWT_SECRET: "staging-secret-key-change-after-testing"
+- JWT_SECRET: set via `wrangler secret put JWT_SECRET --env staging` (value never committed)
 - Preview URLs: Enabled (can be disabled)
 - Rate limiting: Not configured (add for production)
 - WAF rules: Not configured (add for production)

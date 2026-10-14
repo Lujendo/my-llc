@@ -238,13 +238,16 @@ curl -X GET "https://my-llc-staging.info-eac.workers.dev/api/tasks?entity_id=<EN
         "binding": "DB",
         "database_name": "my-llc-staging",
         "database_id": "a2c802b8-67a5-4e66-a2ab-7faa71fdc9a4"
-      }],
-      "vars": {
-        "JWT_SECRET": "staging-secret-key-change-after-testing"
-      }
+      }]
     }
   }
 }
+```
+
+`JWT_SECRET` is **not** a `vars` entry — it is a Worker secret. Set it with:
+
+```bash
+npx wrangler secret put JWT_SECRET --env staging
 ```
 
 ---
