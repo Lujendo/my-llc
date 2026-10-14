@@ -52,7 +52,7 @@
 		"build": "tsc -b && vite build",
 		"cf-typegen": "wrangler types",
 		"check": "tsc && vite build && wrangler deploy --dry-run",
-		"deploy": "wrangler deploy",
+		"deploy": "wrangler deploy --env production -c wrangler.json",
 		"dev": "vite",
 		"lint": "eslint .",
 		"test:w7": "node w7-smoke.mjs",
