@@ -23,26 +23,17 @@
 					"database_name": "my-llc-staging",
 					"database_id": "a2c802b8-67a5-4e66-a2ab-7faa71fdc9a4"
 				}
-			],
-			"vars": {
-				"JWT_SECRET": "staging-secret-key-change-after-testing"
-			}
+			]
 		},
 		"production": {
 			"d1_databases": [
 				{
 					"binding": "DB",
-					"database_name": "my-llc-db",
-					"database_id": "prod-db-id"
+					"database_name": "my-llc-production",
+					"database_id": "2d82b8d3-9d22-4c03-a9a2-a6defbb94d0e"
 				}
-			],
-			"vars": {
-				"JWT_SECRET": "prod-secret"
-			}
+			]
 		}
-	},
-	"vars": {
-		"JWT_SECRET": "dev-secret-key-change-in-production"
 	},
 	"assets": {
 		"directory": "./dist/client",

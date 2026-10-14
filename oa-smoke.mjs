@@ -120,8 +120,8 @@ ok(res.bytes.length > 4000, `output is a non-trivial file (${res.bytes.length} b
 ok(res.filename.endsWith(".pdf") && res.filename.includes("DRAFT"), `filename is ${res.filename}`);
 ok(res.pages >= 2, `has the agreement + disclaimer page (${res.pages} pages)`);
 
-ok(pdfContains(res.bytes, "HAVE A LAWYER REVIEW"), "DRAFT banner text is embedded inside the PDF file");
-ok(pdfContains(res.bytes, "DRAFT - HAVE A LAWYER REVIEW. NOT REVIEWED BY COUNSEL. NOT LEGAL ADVICE."), "full DRAFT banner travels inside the file");
+ok(pdfContains(res.bytes, "REVIEW BEFORE SIGNING"), "DRAFT banner text is embedded inside the PDF file");
+ok(pdfContains(res.bytes, "DRAFT - REVIEW BEFORE SIGNING. NOT REVIEWED BY COUNSEL. NOT LEGAL ADVICE."), "full DRAFT banner travels inside the file");
 ok(pdfContains(res.bytes, "Rossi Holdings LLC"), "LLC name is drawn into the PDF content");
 
 const reloaded = await PDFDocument.load(res.bytes);

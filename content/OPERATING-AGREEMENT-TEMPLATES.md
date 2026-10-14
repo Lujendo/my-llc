@@ -7,21 +7,20 @@
 
 ---
 
-> # ⚠️ NOT LEGAL ADVICE — REQUIRES ATTORNEY REVIEW BEFORE SIGNING
+> # ⚠️ NOT LEGAL ADVICE — CONSIDER PROFESSIONAL REVIEW BEFORE SIGNING
 >
 > **Every operating agreement generated from these templates is a draft.** Using this
 > template does **not** create an attorney–client relationship. The generator
 > **prepares a document from the data you enter** — it does **not** review your facts,
 > choose your structure, or confirm that the result is correct or enforceable.
 >
-> **Before anyone signs the generated document:**
-> 1. A **licensed attorney** in the state of organization must review the completed
->    draft against the user's ownership, tax, and home-country facts.
-> 2. This is **mandatory**, not optional — the sections flagged 🔴 in § 4 are the ones
->    where a wrong or missing term creates real exposure.
+> **Before anyone signs the generated document, consider having a licensed attorney**
+> in the state of organization review the completed draft against the user's ownership,
+> tax, and home-country facts. This is a recommendation, not a gate — the sections
+> flagged 🔴 in § 4 are the ones where a wrong or missing term creates real exposure.
 >
 > Do **not** present the output as "ready to sign" or "attorney-approved." Present it as
-> **"draft — have a lawyer review."** The product must log this acknowledgment with a
+> **"draft — review before signing."** The product logs this acknowledgment with a
 > timestamp and template version (see `TAX-DISCLAIMERS.md`, Block 3).
 
 ---
@@ -50,7 +49,7 @@ terms (see § 7). L1 and L3 are unchanged. Do not fork the whole document.
 
 ## 2. WYOMING — Single-Member LLC Operating Agreement (MVP, COMPLETE)
 
-> **Status: COMPLETE draft.** Every article below is authored. **Requires attorney review before signing.**
+> **Status: COMPLETE draft.** Every article below is authored. **Consider professional review before signing.**
 
 ---
 
@@ -374,28 +373,28 @@ Source of truth: the **entity record** (see the Entity Record template in the
 
 ---
 
-## 4. Legal-sufficiency notes — what an attorney MUST review
+## 4. Legal-sufficiency notes — what to review carefully
 
 The banner in § 0 covers the whole document. These are the sections where a defect is
 **load-bearing**.
 
 | # | Section | Risk if wrong | Review level |
 |---|---|---|---|
-| 1 | **Art. 1.1–1.4** Formation / name / RA | Wrong formation date or non-compliant RA address → the OA references a company that isn't validly formed, or an RA that violates W.S. 17-29-113. | 🔴 **Must review** |
-| 2 | **Art. 4** Management / authority | Wrong management structure changes who can bind the company and who owes duties. | 🔴 **Must review** |
-| 3 | **Art. 5.3** Distribution limits | Distribution while insolvent can be clawed back and creates personal liability. | 🔴 **Must review** |
-| 4 | **Art. 6.5** Tax classification | Classification drives every federal filing obligation. Must match the EIN application and any Form 8832 already filed. | 🔴 **Must review** |
-| 5 | **Art. 7** Transfer restrictions | A defective restriction may be unenforceable, or may fail to prevent a second member. | 🔴 **Must review** |
-| 6 | **Art. 8.3** Winding-up waterfall | Paying members before creditors = personal exposure under the Act. | 🔴 **Must review** |
+| 1 | **Art. 1.1–1.4** Formation / name / RA | Wrong formation date or non-compliant RA address → the OA references a company that isn't validly formed, or an RA that violates W.S. 17-29-113. | 🔴 **High priority** |
+| 2 | **Art. 4** Management / authority | Wrong management structure changes who can bind the company and who owes duties. | 🔴 **High priority** |
+| 3 | **Art. 5.3** Distribution limits | Distribution while insolvent can be clawed back and creates personal liability. | 🔴 **High priority** |
+| 4 | **Art. 6.5** Tax classification | Classification drives every federal filing obligation. Must match the EIN application and any Form 8832 already filed. | 🔴 **High priority** |
+| 5 | **Art. 7** Transfer restrictions | A defective restriction may be unenforceable, or may fail to prevent a second member. | 🔴 **High priority** |
+| 6 | **Art. 8.3** Winding-up waterfall | Paying members before creditors = personal exposure under the Act. | 🔴 **High priority** |
 | 7 | **Art. 10** Indemnification / exculpation | Over-broad exculpation may be void under W.S. 17-29-110(c); under-broad may expose the member. | 🟡 Review |
 | 8 | **Art. 11.1** Governing law | If the Act's internal-affairs choice of law is varied, the clause is void. | 🟡 Review |
 | 9 | **Signature block** | Must be executed by the correct party in the correct capacity. | 🟡 Review |
 | 10 | **Purpose (Art. 1.6)** | An overly narrow purpose can invalidate acts; an overly broad one may affect licensing. | 🟡 Review |
 | 11 | **Boilerplate (Art. 2, 3, 11.2–11.7)** | Low risk, but still unreviewed. | 🟢 Low |
 
-**Product implication.** Until a licensed attorney signs off on this template, the
-"download" button must carry the `DRAFT — HAVE A LAWYER REVIEW` label and the § 0 banner
-must travel with every generated copy (also inside the PDF/DOCX, not only on screen).
+**Product implication.** The "download" button carries the `DRAFT — REVIEW BEFORE SIGNING`
+label and the § 0 banner travels with every generated copy (also inside the PDF/DOCX, not
+only on screen). Consider having a licensed attorney review the template over time.
 
 ---
 
@@ -513,7 +512,7 @@ attempt to resolve it.
 
 > **Status: INCOMPLETE. ‹TODO-STATE› markers below are not authored.**
 > **Do NOT ship this as a finished document. Do NOT present as ready to sign.**
-> A Delaware attorney must author the missing sections before this template is used.
+> A Delaware attorney should author the missing sections before this template is used.
 
 **Why Delaware differs (verified):**
 - The governing document is the **"limited liability company agreement"**; a
@@ -585,11 +584,11 @@ get the wording exactly right before publishing. **‹TODO-STATE: attorney-autho
 |---|---|---|---|
 | 1.0 | 2026-10-13 | Wyoming SMA authored; DE/NV stubs; mapping, review notes, tax note | Entity Manager |
 
-**Open items for counsel:**
-- [ ] Attorney review and sign-off on the Wyoming template (§ 4 must-fix list).
+**Open items for counsel (optional, non-blocking):**
+- [ ] Optional attorney review of the Wyoming template (§ 4 review list).
 - [ ] Author Delaware and Nevada L2 blocks; replace every `‹TODO-STATE›`.
 - [ ] Confirm current WY license fee and annual-report date at the Secretary of State.
 - [ ] Confirm current § 6038A penalty figure against the live Form 5472 instructions.
-- [ ] Decide product posture while unreviewed: block download, or download with
-      `DRAFT — HAVE A LAWYER REVIEW` label? *(Recommend: label + banner, never block
-      outright — the user came for a document.)*
+- [ ] Product posture: download carries the `DRAFT — REVIEW BEFORE SIGNING` label and
+      the banner travels with every copy. *(Never block outright — the user came for a
+      document.)*

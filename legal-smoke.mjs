@@ -112,8 +112,8 @@ ok(
   "App renders the legal pages from those imports"
 );
 ok(
-  copy.includes("TEMPLATE — requires review by a licensed attorney"),
-  "source copy still carries the attorney-review banner"
+  !copy.includes("requires review by a licensed attorney"),
+  "source copy no longer carries a blocking attorney-review gate"
 );
 
 console.log(failures === 0 ? "\nLegal smoke check PASSED" : `\nLegal smoke check FAILED (${failures})`);

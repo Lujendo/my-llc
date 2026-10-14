@@ -3,14 +3,18 @@
 **Doc version:** 1.0
 **Effective:** 2026-10-13
 **Author:** Federal Advisor (US) — MY-LLC Dashboard
-**Legal basis (verify with counsel):** IRC §7701(a)(36) & Circular 230 (practice before the IRS); IRC §7216 (use/disclosure of tax return information); IRC §6109 (taxpayer ID numbers); PATH Act 2015 (P.L. 114-113, Div. Q); FTC Act §5 (deceptive claims).
+**Legal basis (references to confirm as needed):** IRC §7701(a)(36) & Circular 230 (practice before the IRS); IRC §7216 (use/disclosure of tax return information); IRC §6109 (taxpayer ID numbers); PATH Act 2015 (P.L. 114-113, Div. Q); FTC Act §5 (deceptive claims).
 
-> These are drafts for a US‑focused product. They are informational, not legal advice. Have counsel review and localize before publishing. Plain English, short sentences, ESL‑friendly.
+> These are informational, not legal advice. Consider having counsel review and localize them over time; they are not a launch gate. Plain English, short sentences, ESL‑friendly.
+
+**Framing:** MY-LLC Dashboard is a **pre-filling helper** that helps you pre-fill forms and documents from what you type and produces **drafts**. It does not file, submit, or act on your behalf, does not give legal, tax, or accounting advice, and does not create any professional, client, preparer, or fiduciary relationship. **You are the actor** who reviews, signs, and files.
+
+**Do not reword Blocks 1–5 without also updating the mirrored copy in code** (`src/react-app/lib/w7.ts`, `src/react-app/lib/oa.ts`). Those blocks are copied verbatim into generated documents; the source file and the code must not drift.
 
 **Use rules**
 - Show **before** the user generates or downloads any document.
 - Log the acknowledgment checkbox with **timestamp + disclaimer version**.
-- Keep the language exactly as written unless counsel revises it.
+- Keep the language as written unless you choose to have counsel revise it.
 
 ---
 

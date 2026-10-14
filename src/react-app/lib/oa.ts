@@ -31,8 +31,8 @@ import {
 export const OA_SUPPORTED_STATES = ["WY"] as const;
 
 // entity_manager instruction + template §4: this label must travel with every copy.
-export const DRAFT_BANNER = "DRAFT - HAVE A LAWYER REVIEW";
-export const DRAFT_BANNER_LONG = "DRAFT - HAVE A LAWYER REVIEW. NOT REVIEWED BY COUNSEL. NOT LEGAL ADVICE.";
+export const DRAFT_BANNER = "DRAFT — REVIEW BEFORE SIGNING";
+export const DRAFT_BANNER_LONG = "DRAFT — REVIEW BEFORE SIGNING. NOT REVIEWED BY COUNSEL. NOT LEGAL ADVICE.";
 
 // REVIEW-CHECKBOX-COPY.md §3 — entity creation disclaimer (verbatim).
 export const ENTITY_CREATION_DISCLAIMER =

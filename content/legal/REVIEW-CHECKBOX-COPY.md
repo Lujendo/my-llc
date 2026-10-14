@@ -1,12 +1,16 @@
-> ⚠️ **TEMPLATE — requires review by a licensed attorney in the relevant jurisdiction before publication.**
-> These are user-facing strings. Copy them **verbatim** into the UI. Do not soften or shorten the warnings without counsel.
-> Tokens in `[SQUARE BRACKETS]` must be filled in.
+> **User-facing copy — ready to ship (pre-filling-helper framing).** Consider having a qualified professional review this wording over time; you remain responsible for what you file.
+> These are user-facing strings. Copy them **verbatim** into the UI. Do not soften or shorten the warnings.
+> Tokens in `[SQUARE BRACKETS]` must be filled in by the CEO.
 
 ---
 
 # User-Facing Copy — Verbatim Strings
 
 Plain English, short sentences, ESL-friendly. Keep the meaning if you translate; keep the English version as the controlling text.
+
+**Framing (applies to every string below):** MY-LLC Dashboard is a **pre-filling helper**. It helps you pre-fill forms and documents from what you type, and it produces **drafts**. It does **not** file, submit, or act on your behalf, and it does **not** give legal, tax, or accounting advice or create any professional, client, preparer, or fiduciary relationship. **You are the actor** — you review, sign, and file.
+
+**Do not edit the `>` lines in sections 1–6 without also updating the mirrored copy in code** (`src/react-app/lib/legal.ts`, `src/react-app/lib/w7.ts`, `src/react-app/lib/oa.ts`) — the automated check `legal-smoke.mjs` enforces they stay identical.
 
 ---
 
@@ -86,18 +90,16 @@ Plain English, short sentences, ESL-friendly. Keep the meaning if you translate;
 
 ---
 
-## 7. Optional: payment / checkout consent (if you charge)
+## 7. Payment / checkout consent (only when paid plans launch)
 
-**Text (verbatim):**
+The Service is **free today** and **no payments are collected**. There is therefore **no checkout consent to show and no refund policy to state yet** — refunds are "not applicable until paid plans launch" (see the Terms of Service §9). Use the copy below **only** once a payment system is live, and publish a matching refund policy at the same time.
 
-> I understand that MY-LLC Dashboard is an educational tool and not tax, legal, or accounting advice, and that fees are for use of the software only. [Refund policy link]
+**Text to use when paid plans launch (verbatim):**
+
+> I understand that MY-LLC Dashboard is a self-help document-preparation tool and not tax, legal, or accounting advice, and that any fees are for use of the software only. [Refund policy link]
 
 ---
 
-### ⚖️ Copy that genuinely REQUIRES a licensed attorney before launch
+### Internal — optional counsel review items (non-blocking)
 
-1. **§1 Professional review checkbox** — the exact wording of the acknowledgment is your main evidence of informed consent; counsel should approve it.
-2. **§3 Entity creation disclaimer** — forming an entity is a legal act; the disclaimer must match the states/countries you serve.
-3. **§5 Cookie banner** — consent wording and "reject" parity must satisfy GDPR/ePrivacy and CCPA/CPRA.
-4. **§6 Signup consent** — must correctly incorporate the Terms and Privacy Policy and any arbitration/class-action notice required by law.
-5. **Any translation** — translated warnings must be reviewed so they carry the same legal meaning.
+Nothing here blocks launch. See `content/legal/POST-LAUNCH-ATTORNEY-CHECKLIST.md` for the optional list: the exact §1 acknowledgment wording, the §3 entity disclaimer per target market, the §5/§6 GDPR + ePrivacy + CCPA/CPRA wording, the age attestation wording, and any translation.

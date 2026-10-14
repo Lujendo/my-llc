@@ -1,6 +1,6 @@
 // Verbatim legal content. Source of truth: content/legal/*.md — do not edit here.
-// The TEMPLATE / attorney-review banner at the top of each file is intentional and
-// must stay visible until counsel signs off.
+// Rendered as-is at /terms and /privacy; the strings below must stay byte-for-byte
+// identical to content/legal/REVIEW-CHECKBOX-COPY.md (legal-smoke.mjs enforces it).
 import termsMd from "../../../content/legal/TERMS-OF-SERVICE.md?raw";
 import privacyMd from "../../../content/legal/PRIVACY-POLICY.md?raw";
 
