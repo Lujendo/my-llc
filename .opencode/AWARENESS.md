@@ -78,9 +78,11 @@ Tables: `users`, `entities`, `tasks`, `documents`, `notifications`, `rate_limits
 ## 7. Environments / deploy
 
 - **local:** `my-llc-db` (`database_id: "local"`) via `wrangler dev`.
-- **staging:** `my-llc-staging` — live at https://my-llc-staging.info-eac.workers.dev
-- **production:** `my-llc-production` (DB defined) — launch targeted Nov 15, 2026.
-- Scripts: `dev`, `build` (tsc -b && vite build), `check`, `deploy`, `lint`, `preview`; smoke: `test:w7`, `test:oa`, `test:journey`. Holding Hub smoke scripts run directly via node (not npm-wired): `src/worker/db/holdings-calendar-smoke.mjs`, `src/react-app/lib/{holdings,date,calendar}.smoke.mjs`.
+- **staging:** worker `my-llc-staging` — live at https://my-llc-staging.info-eac.workers.dev
+- **production:** worker `my-llc` — live at https://my-llc.info-eac.workers.dev. **CI-managed by Cloudflare Workers Builds** (GitHub `Lujendo/my-llc`, branch `main`, root `/`); every push to `main` runs `npm run build` + `npm run deploy`. Manual fallback: `wrangler deploy --env production -c wrangler.json`. Prod D1 = `my-llc-production` (id `2d82b8d3-9d22-4c03-a9a2-a6defbb94d0e`, region EEUR), shared by the workers. Worker secret `JWT_SECRET` set on `my-llc`.
+- **⚠️ Deploy gotcha:** a bare `wrangler deploy` does **not** use the root `wrangler.json` — it follows `.wrangler/deploy/config.json` → `dist/my_llc/wrangler.json` (Vite-generated), which bakes in the default env's D1 (`my-llc-db`, `database_id: "local"`, a placeholder). Remote deploy then fails with `binding DB of type d1 must have a valid database_id specified [code: 10021]`. Always pass `--env production -c wrangler.json`.
+- **Deprecated:** the *worker* named `my-llc-production` is an unused former placeholder — do not deploy to it. (The *D1 database* of the same name is the real production DB and is not deprecated.)
+- Scripts: `dev`, `build` (tsc -b && vite build), `check`, `deploy` (`wrangler deploy --env production -c wrangler.json`), `lint`, `preview`; smoke: `test:w7`, `test:oa`, `test:journey`. Holding Hub smoke scripts run directly via node (not npm-wired): `src/worker/db/holdings-calendar-smoke.mjs`, `src/react-app/lib/{holdings,date,calendar}.smoke.mjs`.
 
 ## 8. Current status (as of 2026-10-14)
 
