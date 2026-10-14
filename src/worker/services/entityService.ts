@@ -127,10 +127,13 @@ export class EntityService {
 
     // BUG-01: tasks/documents FK to entities with no ON DELETE CASCADE, so the
     // parent delete fails while children exist. Delete children first.
-    // ponytail: two extra statements; a schema-level ON DELETE CASCADE would be
+    // ponytail: extra statements; a schema-level ON DELETE CASCADE would be
     // cleaner but SQLite cannot add it without a full table rebuild.
     await this.db.execute("DELETE FROM tasks WHERE entity_id = ?", [id]);
     await this.db.execute("DELETE FROM documents WHERE entity_id = ?", [id]);
+    // COMPLIANCE: also clear calendar events and holding members referencing this entity.
+    await this.db.execute("DELETE FROM calendar_events WHERE entity_id = ?", [id]);
+    await this.db.execute("DELETE FROM holding_members WHERE entity_id = ?", [id]);
     await this.db.execute("DELETE FROM entities WHERE id = ? AND user_id = ?", [id, userId]);
   }
 }

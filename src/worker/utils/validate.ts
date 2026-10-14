@@ -1,4 +1,4 @@
-import { Context } from "hono";
+import type { Context } from "hono";
 
 // ponytail: hand-rolled validators for a handful of fields — a schema lib is not
 // worth the dependency here. Swap for zod/valibot if the surface grows.
@@ -24,6 +24,19 @@ export function isOptionalStr(v: unknown, max: number): boolean {
 
 export function isOptionalInt(v: unknown, min: number, max: number): boolean {
   return v === undefined || v === null || (typeof v === "number" && Number.isInteger(v) && v >= min && v <= max);
+}
+
+// Client payloads may use camelCase (the calendar UI does); DB columns and the
+// services' update contracts are snake_case. Normalize once at the boundary so
+// a camelCase update is not a silent no-op. Idempotent for snake_case keys.
+// ponytail: shallow rename only — these resources have no nested objects. Null
+// prototype so a client-supplied "__proto__" key can't rewrite the prototype.
+export function toSnakeKeys<T extends Record<string, any>>(obj: T): Record<string, any> {
+  const out: Record<string, any> = Object.create(null);
+  for (const [k, v] of Object.entries(obj)) {
+    out[k.replace(/[A-Z]/g, (m) => "_" + m.toLowerCase())] = v;
+  }
+  return out;
 }
 
 // Parse a JSON object body; returns null on malformed JSON or non-object payloads.

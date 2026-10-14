@@ -73,4 +73,32 @@ export const api = {
     
     return data.data || data;
   },
+
+  // Holdings
+  listHoldings: () => api.request<{ constellations: any[] }>("/api/holdings"),
+  createHolding: (data: any) => api.request<{ holding: any }>("/api/holdings", { method: "POST", body: JSON.stringify(data) }),
+  getHolding: (id: string) => api.request<{ holding: any }>(`/api/holdings/${id}`),
+  updateHolding: (id: string, data: any) => api.request<{ holding: any }>(`/api/holdings/${id}`, { method: "PATCH", body: JSON.stringify(data) }),
+  deleteHolding: (id: string) => api.request(`/api/holdings/${id}`, { method: "DELETE" }),
+  setHoldingParent: (id: string, data: any) => api.request<{ relationship: any }>(`/api/holdings/${id}/parent`, { method: "POST", body: JSON.stringify(data) }),
+  addHoldingMember: (id: string, data: any) => api.request<{ member: any }>(`/api/holdings/${id}/members`, { method: "POST", body: JSON.stringify(data) }),
+  removeHoldingMember: (id: string, entityId: string) => api.request(`/api/holdings/${id}/members/${entityId}`, { method: "DELETE" }),
+  getHoldingConsolidated: (id: string, asOf?: string) => {
+    const qs = asOf ? `?asOf=${encodeURIComponent(asOf)}` : "";
+    return api.request<any>(`/api/holdings/${id}/consolidated${qs}`);
+  },
+
+  // Calendar events
+  listCalendarEvents: (params?: { start?: string; end?: string }) => {
+    const qs = params ? `?${new URLSearchParams(Object.fromEntries(Object.entries(params).filter(([,v]) => v !== undefined && v !== null) as any))}` : "";
+    return api.request<{ events: any[] }>(`/api/calendar-events${qs}`);
+  },
+  createCalendarEvent: (data: any) => api.request<{ event: any }>("/api/calendar-events", { method: "POST", body: JSON.stringify(data) }),
+  getCalendarEvent: (id: string) => api.request<{ event: any }>(`/api/calendar-events/${id}`),
+  updateCalendarEvent: (id: string, data: any) => api.request<{ event: any }>(`/api/calendar-events/${id}`, { method: "PATCH", body: JSON.stringify(data) }),
+  deleteCalendarEvent: (id: string) => api.request(`/api/calendar-events/${id}`, { method: "DELETE" }),
+
+  // Me
+  deleteMe: () => api.request("/api/me", { method: "DELETE" }),
+  exportMe: () => api.request<any>("/api/me/export"),
 };

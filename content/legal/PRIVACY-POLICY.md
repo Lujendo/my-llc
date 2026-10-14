@@ -29,7 +29,9 @@ This Privacy Policy explains what personal data we collect, why, how we store it
 
 **1.5. Support and communications** — messages you send us and our replies.
 
-**1.6. What actually reaches our servers.** In practice the Service stores on our infrastructure only: (a) account data (§1.1); (b) the entity basics you choose to save — LLC name, formation date, state, member count, and owner name / citizenship / residency (§1.2); and (c) a **download/acceptance record** noting that you ticked the professional-review acknowledgment, together with the document type, its version, and a timestamp. It does not include the sensitive form data described in §1.3.
+**1.6. What actually reaches our servers.** In practice the Service stores on our infrastructure only: (a) account data (§1.1); (b) the entity basics you choose to save — LLC name, formation date, state, member count, and owner name / citizenship / residency (§1.2); (c) a **download/acceptance record** noting that you ticked the professional-review acknowledgment, together with the document type, its version, and a timestamp; (d) the **holdings** you create (see §1.7); and (e) your **calendar entries** (see §1.7). It does not include the sensitive form data described in §1.3.
+
+**1.7. Holdings and calendar data.** When you use the **holding hub + calendar** feature you enter, and we store on our servers: (a) **holdings** — the holding name, its jurisdiction (country and subdivision), and base currency; (b) **holding relationships** — the parent/child structure between your holdings; (c) **holding members** — the links that associate your entities with a holding; and (d) **calendar entries** — the event title, description, location, start/end times, and any optional jurisdiction you add. Tasks you create may also carry start/end times and an all-day flag. This is data you type, and it is stored like the entity basics in §1.2.
 
 ## 2. Why we collect it (and our lawful basis)
 
@@ -37,6 +39,7 @@ This Privacy Policy explains what personal data we collect, why, how we store it
 |---|---|---|
 | Create and manage your account | Account data | Contract |
 | Provide the Service / pre-fill forms and generate drafts | Entity basics; acceptance records (sensitive form data stays in your browser — §1.3) | Contract |
+| Organize holdings / schedule & reminders | holdings, holding_relationships, holding_members, calendar entries (§1.7) | Contract |
 | Process payments | Account, payment data | Contract (not enabled — paid plans not yet launched) |
 | Secure the Service, prevent fraud | Request metadata (e.g. IP via our host), account | Legitimate interests / legal obligation |
 | Comply with tax, accounting, and legal duties | Account | Legal obligation |
@@ -79,15 +82,17 @@ If we rely on consent for anything, you can withdraw it at any time (see §7.6).
 
 5.4. **Legal holds:** we may keep data longer if needed for a legal claim, dispute, or legal obligation.
 
-5.5. When retention ends, we delete or anonymize data.
+5.5. When retention ends, we delete or anonymize data — this includes account data (§5.2) and the holdings and calendar data described in §5.7.
 
 5.6. **Browser-only data.** We keep no server-side copy of the sensitive form data described in §1.3, so there is nothing for us to retain on our side (and nothing for us to delete — you control it in your browser).
+
+5.7. **Holdings and calendar data** (`holdings`, `holding_relationships`, `holding_members`, `calendar_entries`, §1.7): while your account is active, then up to `24 months` after closure, unless retention is required by law — the same rule as account data (§5.2).
 
 ## 6. International data transfers
 
 6.1. Users are global. Our servers and providers may be in the **United States** and other countries. Your data may be transferred to and stored in a country different from yours.
 
-6.2. **For EU/EEA/UK users:** we apply appropriate safeguards for transfers of personal data outside the EEA/UK — for example, contractual protections with our providers — and review those safeguards as the law requires.
+6.2. **For EU/EEA/UK users:** we apply appropriate safeguards for transfers of personal data outside the EEA/UK. Our intended transfer mechanism is the **EU-US Data Privacy Framework** (including its UK Extension) where our provider is certified, and otherwise the **European Commission Standard Contractual Clauses (2021/914)** together with a transfer impact assessment. `[CONFIRM]` — counsel to confirm the certified mechanism(s) and that a transfer impact assessment is on file. We review those safeguards as the law requires.
 
 6.3. By using the Service, you understand that your data may be processed in the US.
 
@@ -104,7 +109,7 @@ Subject to your location and applicable law, you may have the right to:
 7.7. **Not be discriminated against** for exercising rights (CCPA/CPRA).
 7.8. **Opt out of "sale"/"sharing"** if applicable (CCPA/CPRA). We do not sell or share your personal data; if that ever changes, we will provide a clear opt-out.
 
-7.9. **What these rights cover.** Your access/correction/erasure/portability rights apply to the data we hold on our servers (§1.6). The sensitive form data you pre-fill in your browser is never in our possession, so we cannot access, export, or erase it for you — you control it directly.
+7.9. **What these rights cover.** Your access/correction/erasure/portability rights apply to all the data we hold on our servers (§1.6) — including your account data, entity basics, acceptance records, and the **holdings and calendar data** described in §1.7. The sensitive form data you pre-fill in your browser is never in our possession, so we cannot access, export, or erase it for you — you control it directly.
 
 To exercise rights, contact support@my-llc.app. We will respond within the time required by law (GDPR: 1 month; CCPA: 45 days). We may need to verify your identity.
 
@@ -145,7 +150,7 @@ We use service providers to run the Service. Current list:
 
 **Controller:** MY-LLC
 **Privacy contact:** support@my-llc.app
-**EU representative (if required):** not yet appointed
-**UK representative (if required):** not yet appointed
+**EU representative (if required):** not yet appointed `[CONFIRM]`
+**UK representative (if required):** not yet appointed `[CONFIRM]`
 
 If you are in the EU/UK, you also have the right to complain to your local supervisory authority.

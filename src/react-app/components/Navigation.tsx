@@ -7,6 +7,7 @@ import {
   FileText,
   Menu,
   Building2,
+  Network,
   Settings,
   LogOut,
   ChevronDown,
@@ -43,6 +44,7 @@ export const Navigation: React.FC<NavigationProps> = ({
     { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
     { id: "checklist", label: "Checklist", icon: ListChecks },
     { id: "timeline", label: "Timeline", icon: Calendar },
+    { id: "hub", label: "Holdings", icon: Network },
     { id: "treaty", label: "Treaty", icon: Globe },
     { id: "documents", label: "Documents", icon: FileText },
   ];

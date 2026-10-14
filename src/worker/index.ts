@@ -8,6 +8,9 @@ import { createAuthRoutes } from "./routes/auth";
 import { createEntityRoutes } from "./routes/entities";
 import { createTaskRoutes } from "./routes/tasks";
 import { createDocumentRoutes } from "./routes/documents";
+import { createHoldingRoutes } from "./routes/holdings";
+import { createCalendarEventRoutes } from "./routes/calendarEvents";
+import { createMeRoutes } from "./routes/me";
 
 declare global {
   interface Env {
@@ -73,6 +76,9 @@ app.route("/api/auth", createAuthRoutes());
 app.route("/api/entities", createEntityRoutes());
 app.route("/api/tasks", createTaskRoutes());
 app.route("/api/documents", createDocumentRoutes());
+app.route("/api/holdings", createHoldingRoutes());
+app.route("/api/calendar-events", createCalendarEventRoutes());
+app.route("/api/me", createMeRoutes());
 
 // 404 handler. API paths stay JSON; everything else defers to the static-assets
 // layer, whose `not_found_handling: single-page-application` returns index.html

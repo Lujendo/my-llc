@@ -10,6 +10,7 @@ import { Timeline } from "./components/Timeline";
 import { TreatyAnalyzer } from "./components/TreatyAnalyzer";
 import { DocumentGenerator } from "./components/DocumentGenerator";
 import { EntityManager } from "./components/EntityManager";
+import { HoldingHub } from "./components/HoldingHub";
 import { Settings } from "./components/Settings";
 import { LegalPage } from "./components/LegalPage";
 import { Footer } from "./components/Footer";
@@ -125,10 +126,17 @@ function App() {
           <DocumentGenerator entity={activeEntity} user={user} />
         )}
 
+        {currentView === "hub" && <HoldingHub userId={user.id} />}
+
         {/* Fallback for unknown views */}
-        {!["dashboard", "checklist", "timeline", "treaty", "documents"].includes(
-          currentView
-        ) && (
+        {![
+          "dashboard",
+          "checklist",
+          "timeline",
+          "treaty",
+          "documents",
+          "hub",
+        ].includes(currentView) && (
           <div className="text-center py-12">
             <p className="text-gray-600 dark:text-gray-400">View not found</p>
           </div>

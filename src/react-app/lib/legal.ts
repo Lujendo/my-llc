@@ -28,7 +28,7 @@ export const SIGNUP_ATTESTATION_COPY =
 // Published document versions. Bump when the content/legal/*.md files change so
 // the consent record points at the version the user actually agreed to.
 export const TERMS_VERSION = "v1.0";
-export const PRIVACY_VERSION = "v1.0";
+export const PRIVACY_VERSION = "v1.1";
 
 // What we send to /api/auth/register as evidence of informed consent. The backend
 // may ignore it today; the record is still captured client-side.

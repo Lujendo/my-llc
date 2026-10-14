@@ -1,4 +1,4 @@
-import type { Entity, Task } from "../types";
+import type { CalendarEvent, Entity, Holding, HoldingMember, HoldingRelationship, Task } from "../types";
 
 // API field contract is camelCase, matching the frontend TS types
 // (src/react-app/types/index.ts). D1 columns are snake_case, so every row is
@@ -36,6 +36,64 @@ export function entityToApi(e: Entity) {
     // ponytail: frontend renders entity.businessType; mirror the tax classification
     // rather than add a second column for the same value.
     businessType: e.tax_classification,
+    createdAt: e.created_at,
+  };
+}
+
+export function holdingToApi(h: Holding) {
+  return {
+    id: h.id,
+    userId: h.user_id,
+    name: h.name,
+    jurisdictionCountry: h.jurisdiction_country,
+    jurisdictionSubdivision: h.jurisdiction_subdivision,
+    baseCurrency: h.base_currency,
+    currencyAsOf: h.currency_as_of,
+    effectiveFrom: h.effective_from,
+    effectiveTo: h.effective_to,
+    createdAt: h.created_at,
+  };
+}
+
+export function holdingRelationshipToApi(r: HoldingRelationship) {
+  return {
+    id: r.id,
+    childHoldingId: r.child_holding_id,
+    parentHoldingId: r.parent_holding_id,
+    effectiveFrom: r.effective_from,
+    effectiveTo: r.effective_to,
+    createdAt: r.created_at,
+  };
+}
+
+export function holdingMemberToApi(m: HoldingMember) {
+  return {
+    id: m.id,
+    holdingId: m.holding_id,
+    entityId: m.entity_id,
+    effectiveFrom: m.effective_from,
+    effectiveTo: m.effective_to,
+    createdAt: m.created_at,
+  };
+}
+
+export function calendarEventToApi(e: CalendarEvent) {
+  return {
+    id: e.id,
+    userId: e.user_id,
+    title: e.title,
+    description: e.description,
+    location: e.location,
+    color: e.color,
+    startTime: e.start_time,
+    endTime: e.end_time,
+    isAllDay: !!e.is_all_day,
+    jurisdictionCountry: e.jurisdiction_country,
+    eventType: e.event_type,
+    source: e.source,
+    reminder: e.reminder,
+    recurrence: e.recurrence,
+    entityId: e.entity_id,
     createdAt: e.created_at,
   };
 }

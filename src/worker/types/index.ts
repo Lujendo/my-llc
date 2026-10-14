@@ -83,6 +83,60 @@ export interface Notification {
   read: boolean;
 }
 
+// Holding (constellation node). Parent links live in HoldingRelationship.
+export interface Holding {
+  id: string;
+  user_id: string;
+  name: string;
+  jurisdiction_country: string;
+  jurisdiction_subdivision: string | null;
+  base_currency: string;
+  currency_as_of: string | null;
+  effective_from: string;
+  effective_to: string | null;
+  created_at: string;
+}
+
+// Parent-link history. Current parent = row where effective_to IS NULL.
+export interface HoldingRelationship {
+  id: string;
+  child_holding_id: string;
+  parent_holding_id: string;
+  effective_from: string;
+  effective_to: string | null;
+  created_at: string;
+}
+
+// Membership history: entity belongs to a holding over a time range.
+export interface HoldingMember {
+  id: string;
+  holding_id: string;
+  entity_id: string;
+  effective_from: string;
+  effective_to: string | null;
+  created_at: string;
+}
+
+// Calendar event (user- or system-created).
+export interface CalendarEvent {
+  id: string;
+  user_id: string;
+  title: string;
+  description: string | null;
+  location: string | null;
+  color: string;
+  start_time: string;
+  end_time: string | null;
+  is_all_day: number;
+  jurisdiction_country: string | null;
+  event_type: string | null;
+  source: "system" | "user";
+  reminder: string | null;
+  recurrence: string | null;
+  entity_id: string | null;
+  created_at: string;
+}
+
 // Auth context
 export interface AuthPayload {
   sub: string; // user_id

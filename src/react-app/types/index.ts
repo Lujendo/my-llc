@@ -62,6 +62,56 @@ export interface TreatyAnalysis {
   expectedTaxRate: number;
 }
 
+export interface Holding {
+  id: string;
+  userId: string;
+  name: string;
+  jurisdictionCountry: string;
+  jurisdictionSubdivision: string | null;
+  baseCurrency: string;
+  currencyAsOf: string | null;
+  effectiveFrom: string;
+  effectiveTo: string | null;
+  createdAt: string;
+}
+
+export interface HoldingRelationship {
+  id: string;
+  childHoldingId: string;
+  parentHoldingId: string;
+  effectiveFrom: string;
+  effectiveTo: string | null;
+  createdAt: string;
+}
+
+export interface HoldingMember {
+  id: string;
+  holdingId: string;
+  entityId: string;
+  effectiveFrom: string;
+  effectiveTo: string | null;
+  createdAt: string;
+}
+
+export interface CalendarEvent {
+  id: string;
+  userId: string;
+  title: string;
+  description: string | null;
+  location: string | null;
+  color: string;
+  startTime: string;
+  endTime: string | null;
+  isAllDay: boolean;
+  jurisdictionCountry: string | null;
+  eventType: string | null;
+  source: "system" | "user";
+  reminder: string | null;
+  recurrence: string | null;
+  entityId: string | null;
+  createdAt: string;
+}
+
 export interface Notification {
   id: string;
   userId: string;
