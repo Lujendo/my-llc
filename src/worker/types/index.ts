@@ -7,8 +7,30 @@ export interface User {
   citizenship: string | null;
   residency: string | null;
   itin_status: "not_started" | "pending" | "received";
+  terms_version: string | null;
+  privacy_version: string | null;
+  consent_at: string | null;
   created_at: string;
   updated_at: string | null;
+}
+
+// Evidence of informed consent captured at signup (legal trust boundary).
+export interface SignupConsent {
+  acceptedTerms: boolean;
+  acceptedPrivacy: boolean;
+  attestedAdult?: boolean;
+  termsVersion?: string;
+  privacyVersion?: string;
+  timestamp?: string;
+}
+
+// Record that a user accepted a document version (terms/privacy).
+export interface DocumentAcceptance {
+  id: string;
+  user_id: string;
+  document_type: "terms" | "privacy";
+  document_version: string;
+  accepted_at: string;
 }
 
 // Entity (LLC)
@@ -20,6 +42,11 @@ export interface Entity {
   state: string | null;
   members_count: number | null;
   status: "idle" | "active" | "dormant";
+  owner_name: string | null;
+  owner_citizenship: string | null;
+  owner_residency: string | null;
+  owner_type: "foreign" | "domestic" | null;
+  tax_classification: string | null;
   created_at: string;
 }
 

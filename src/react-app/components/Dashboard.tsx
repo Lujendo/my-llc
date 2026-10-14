@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
-import type { Entity, Task, Deadline } from "../types";
+import React from "react";
+import type { Entity } from "../types";
 import { Card, Badge, Button } from "./UI";
-import { SAMPLE_TASKS, SAMPLE_DEADLINES } from "../data/sampleData";
+import { useTasks } from "../hooks/useTasks";
+import { stateLabel } from "../lib/states";
 
 interface DashboardProps {
   user: any;
@@ -10,42 +11,15 @@ interface DashboardProps {
 }
 
 export const Dashboard: React.FC<DashboardProps> = ({ user, entity, onNavigate }) => {
-  const [tasks, setTasks] = React.useState<Task[]>([]);
-  const [deadlines, setDeadlines] = React.useState<Deadline[]>([]);
-  const [completionRate, setCompletionRate] = React.useState(0);
+  // ponytail: tasks are the single source of truth (backend); deadlines are derived.
+  const { tasks } = useTasks(entity?.id);
+  const completedCount = tasks.filter((t) => t.completed).length;
+  const completionRate = tasks.length ? Math.round((completedCount / tasks.length) * 100) : 0;
 
-  useEffect(() => {
-    if (!entity) return;
-
-    const stored = localStorage.getItem(`tasks_${entity.id}`);
-    if (!stored) {
-      const initialTasks = SAMPLE_TASKS.map((t) => ({ ...t, entityId: entity.id }));
-      localStorage.setItem(`tasks_${entity.id}`, JSON.stringify(initialTasks));
-      setTasks(initialTasks);
-    } else {
-      setTasks(JSON.parse(stored));
-    }
-
-    const storedDeadlines = localStorage.getItem(`deadlines_${entity.id}`);
-    if (!storedDeadlines) {
-      const initialDeadlines = SAMPLE_DEADLINES.map((d) => ({ ...d, entityId: entity.id }));
-      localStorage.setItem(`deadlines_${entity.id}`, JSON.stringify(initialDeadlines));
-      setDeadlines(initialDeadlines);
-    } else {
-      setDeadlines(JSON.parse(storedDeadlines));
-    }
-  }, [entity]);
-
-  useEffect(() => {
-    if (tasks.length === 0) return;
-    const rate = Math.round((tasks.filter((t) => t.completed).length / tasks.length) * 100);
-    setCompletionRate(rate);
-  }, [tasks]);
-
-  // Get next 5 deadlines
-  const upcomingDeadlines = deadlines
-    .filter((d) => d.status === "pending")
-    .sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime())
+  // Next 5 outstanding tasks that carry a due date.
+  const upcomingDeadlines = tasks
+    .filter((t) => t.dueDate && !t.completed)
+    .sort((a, b) => new Date(a.dueDate!).getTime() - new Date(b.dueDate!).getTime())
     .slice(0, 5);
 
   const getUrgencyColor = (urgency: string) => {
@@ -93,7 +67,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, entity, onNavigate }
           Welcome, {user.name}
         </h1>
         <p className="text-gray-600 dark:text-gray-400">
-          {entity.name} ({entity.state}) • Formed {new Date(entity.formationDate).toLocaleDateString()}
+          {entity.name} ({stateLabel(entity.state)}) • Formed{" "}
+          {entity.formationDate ? new Date(entity.formationDate).toLocaleDateString() : "—"}
         </p>
       </div>
 
@@ -110,7 +85,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, entity, onNavigate }
             />
           </div>
           <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-            {tasks.filter((t) => t.completed).length} of {tasks.length} tasks completed ({completionRate}%)
+            {completedCount} of {tasks.length} tasks completed ({completionRate}%)
           </p>
         </div>
       </Card>
@@ -122,24 +97,28 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, entity, onNavigate }
         </h2>
         <div className="space-y-3">
           {upcomingDeadlines.length > 0 ? (
-            upcomingDeadlines.map((deadline) => (
-              <div
-                key={deadline.id}
-                className="flex items-start justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600"
-              >
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <h3 className={`font-medium text-gray-900 dark:text-white ${getUrgencyColor(deadline.urgency)}`}>
-                      {deadline.title}
-                    </h3>
+            upcomingDeadlines.map((task) => {
+              const days = daysUntilDeadline(task.dueDate!);
+              const urgency = days <= 7 ? "high" : days <= 30 ? "medium" : "low";
+              return (
+                <div
+                  key={task.id}
+                  className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600"
+                >
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className={`font-medium text-gray-900 dark:text-white ${getUrgencyColor(urgency)}`}>
+                        {task.title}
+                      </h3>
+                    </div>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      Due {new Date(task.dueDate!).toLocaleDateString()} ({days} days)
+                    </p>
                   </div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Due {new Date(deadline.dueDate).toLocaleDateString()} ({daysUntilDeadline(deadline.dueDate)} days)
-                  </p>
+                  <Badge label={urgency.toUpperCase()} status={getUrgencyBadge(urgency)} />
                 </div>
-                <Badge label={deadline.urgency.toUpperCase()} status={getUrgencyBadge(deadline.urgency)} />
-              </div>
-            ))
+              );
+            })
           ) : (
             <p className="text-gray-500 dark:text-gray-400 text-center py-4">No upcoming deadlines</p>
           )}

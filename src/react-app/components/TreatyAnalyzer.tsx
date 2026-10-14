@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import type { Entity } from "../types";
 import { Card, Button, Badge, Alert } from "./UI";
+import { GLOBAL_TAX_DISCLAIMER, REVIEW_CHECKBOX_LABEL, REVIEW_CHECKBOX_SUPPORT, DISCLAIMER_VERSION } from "../lib/w7";
+import { buildTreatyMemo, TREATY_MEMO_DISCLAIMER } from "../lib/treaty";
+import { logDocAcceptance } from "../lib/acceptance";
 
 interface TreatyAnalyzerProps {
   entity: Entity | null;
@@ -14,9 +17,57 @@ export const TreatyAnalyzer: React.FC<TreatyAnalyzerProps> = ({ entity, user }) 
     foreignAccounts: false,
   });
   const [showAnalysis, setShowAnalysis] = useState(false);
+  const [memoAck, setMemoAck] = useState(false);
+
+  // ponytail: simplified treaty analysis for MVP, full logic implemented in backend
+  const riskLevel = answers.hasIncome ? "high" : "low";
 
   const handleAnalyze = () => {
     setShowAnalysis(true);
+  };
+
+  const onMemoAckToggle = (checked: boolean) => {
+    setMemoAck(checked);
+    if (checked) {
+      logDocAcceptance({
+        documentType: "treaty_memo",
+        documentVersion: DISCLAIMER_VERSION,
+        acceptedAt: new Date().toISOString(),
+        event: "ticked",
+        form: "Treaty Memo",
+        userId: user?.id ?? null,
+      });
+    }
+  };
+
+  const downloadMemo = () => {
+    const { filename, text } = buildTreatyMemo({
+      taxpayer: user?.name ?? "",
+      entity: entity?.name ?? "",
+      citizenship: user?.citizenship ?? "",
+      residency: user?.residency ?? "",
+      membersCount: entity?.membersCount ?? 1,
+      disregarded: answers.disregarded,
+      hasIncome: answers.hasIncome,
+      foreignAccounts: answers.foreignAccounts,
+      riskLevel: riskLevel,
+    });
+    const url = URL.createObjectURL(new Blob([text], { type: "text/plain" }));
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    logDocAcceptance({
+      documentType: "treaty_memo",
+      documentVersion: DISCLAIMER_VERSION,
+      acceptedAt: new Date().toISOString(),
+      event: "downloaded",
+      form: "Treaty Memo",
+      userId: user?.id ?? null,
+    });
   };
 
   if (!entity || !user) {
@@ -26,9 +77,6 @@ export const TreatyAnalyzer: React.FC<TreatyAnalyzerProps> = ({ entity, user }) 
       </div>
     );
   }
-
-  // ponytail: simplified treaty analysis for MVP, full logic implemented in backend
-  const riskLevel = answers.hasIncome ? "high" : "low";
 
   return (
     <div className="space-y-6">
@@ -180,14 +228,32 @@ export const TreatyAnalyzer: React.FC<TreatyAnalyzerProps> = ({ entity, user }) 
                 />
               )}
 
+              {/* Disclaimers + enforced review gate before the memo download. */}
+              <div className="border-t border-gray-200 dark:border-gray-700 pt-4 space-y-3">
+                <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">{TREATY_MEMO_DISCLAIMER}</p>
+                <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">{GLOBAL_TAX_DISCLAIMER}</p>
+                <label className="flex items-start gap-3 cursor-pointer">
+                  <input type="checkbox" checked={memoAck} onChange={(e) => onMemoAckToggle(e.target.checked)} className="mt-0.5 h-4 w-4" />
+                  <span>
+                    <span className="block text-sm font-medium text-gray-900 dark:text-white">{REVIEW_CHECKBOX_LABEL}</span>
+                    <span className="block text-xs text-gray-600 dark:text-gray-400 mt-1">{REVIEW_CHECKBOX_SUPPORT}</span>
+                  </span>
+                </label>
+              </div>
+
               <div className="flex gap-3 pt-4">
-                <Button variant="success" className="flex-1">
+                <Button variant="success" className="flex-1" onClick={downloadMemo} disabled={!memoAck}>
                   Download Treaty Memo
                 </Button>
                 <Button variant="secondary" className="flex-1">
                   Email to Advisor
                 </Button>
               </div>
+              {!memoAck && (
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  The memo download stays disabled until you tick the acknowledgment above.
+                </p>
+              )}
             </div>
           </div>
         </Card>

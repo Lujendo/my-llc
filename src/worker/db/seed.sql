@@ -1,5 +1,7 @@
 -- Seed data for development
 -- Password: password123
+-- Legacy SHA-256 hash (salt:hash). Intentionally left in the old format so the
+-- login path exercises the transparent PBKDF2 rehash-on-login migration.
 -- Hash: jSnzF6gUn1ZUn30Ar7+/Eg==:7GOuCzum85+Yd97WpAn/BTSEKO42nCvnocCouGWu5wY=
 
 INSERT OR IGNORE INTO users (id, email, password_hash, name, citizenship, residency, itin_status)

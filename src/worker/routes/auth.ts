@@ -2,6 +2,8 @@ import { Hono } from "hono";
 import { AuthService } from "../services/authService";
 import { Database } from "../db/queries";
 import { getUserContext, authGuard } from "../middleware/auth";
+import { fail } from "../utils/errors";
+import { isEmail, isStr, isOptionalStr, readJson, MIN_PASSWORD, MAX_PASSWORD, MAX_NAME, MAX_SHORT } from "../utils/validate";
 
 export function createAuthRoutes(): Hono<{ Bindings: Env }> {
   const router = new Hono<{ Bindings: Env }>();
@@ -9,15 +11,25 @@ export function createAuthRoutes(): Hono<{ Bindings: Env }> {
   // POST /api/auth/register
   router.post("/register", async (c) => {
     try {
-      const db = new Database(c.env.DB);
-      const authService = new AuthService(db, c.env.JWT_SECRET);
-      const { email, password, name, citizenship, residency } = await c.req.json();
+      const body = await readJson(c);
+      if (!body) return c.json({ success: false, error: "Invalid JSON body" }, 400);
 
-      if (!email || !password) {
-        return c.json({ success: false, error: "Email and password required" }, 400);
+      const { email, password, name, citizenship, residency, consent } = body;
+      if (!isEmail(email)) return c.json({ success: false, error: "Valid email required" }, 400);
+      if (!isStr(password, MAX_PASSWORD, MIN_PASSWORD)) {
+        return c.json({ success: false, error: `Password must be ${MIN_PASSWORD}-${MAX_PASSWORD} characters` }, 400);
+      }
+      if (!isOptionalStr(name, MAX_NAME) || !isOptionalStr(citizenship, MAX_SHORT) || !isOptionalStr(residency, MAX_SHORT)) {
+        return c.json({ success: false, error: "Invalid profile fields" }, 400);
+      }
+      // Consent is required and enforced in the service (trust boundary).
+      if (!consent || typeof consent !== "object" || consent.acceptedTerms !== true || consent.acceptedPrivacy !== true) {
+        return c.json({ success: false, error: "You must accept the Terms of Service and Privacy Policy" }, 400);
       }
 
-      const { user, token } = await authService.register(email, password, name, citizenship, residency);
+      const db = new Database(c.env.DB);
+      const authService = new AuthService(db, c.env.JWT_SECRET);
+      const { user, token } = await authService.register(email, password, name as string, citizenship as string, residency as string, consent);
 
       return c.json(
         {
@@ -35,22 +47,25 @@ export function createAuthRoutes(): Hono<{ Bindings: Env }> {
         },
         201
       );
-    } catch (error: any) {
-      return c.json({ success: false, error: error.message }, error.statusCode || 400);
+    } catch (error) {
+      return fail(c, error);
     }
   });
 
   // POST /api/auth/login
   router.post("/login", async (c) => {
     try {
-      const db = new Database(c.env.DB);
-      const authService = new AuthService(db, c.env.JWT_SECRET);
-      const { email, password } = await c.req.json();
+      const body = await readJson(c);
+      if (!body) return c.json({ success: false, error: "Invalid JSON body" }, 400);
 
-      if (!email || !password) {
+      const { email, password } = body;
+      // Login only checks shape, not min length — legacy users may predate the policy.
+      if (!isEmail(email) || !isStr(password, MAX_PASSWORD, 1)) {
         return c.json({ success: false, error: "Email and password required" }, 400);
       }
 
+      const db = new Database(c.env.DB);
+      const authService = new AuthService(db, c.env.JWT_SECRET);
       const { user, token } = await authService.login(email, password);
 
       return c.json({
@@ -66,8 +81,8 @@ export function createAuthRoutes(): Hono<{ Bindings: Env }> {
           token,
         },
       });
-    } catch (error: any) {
-      return c.json({ success: false, error: error.message }, error.statusCode || 400);
+    } catch (error) {
+      return fail(c, error);
     }
   });
 
@@ -105,8 +120,8 @@ export function createAuthRoutes(): Hono<{ Bindings: Env }> {
           },
         },
       });
-    } catch (error: any) {
-      return c.json({ success: false, error: error.message }, error.statusCode || 400);
+    } catch (error) {
+      return fail(c, error);
     }
   });
 

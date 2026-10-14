@@ -1,44 +1,57 @@
 import { useState, useEffect, useCallback } from "react";
 import type { User } from "../types";
+import { api } from "../lib/api";
+import type { SignupConsent } from "../lib/legal";
 
 export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // ponytail: localStorage for MVP, switch to backend API when ready
   useEffect(() => {
-    const stored = localStorage.getItem("user");
-    if (stored) {
-      try {
-        setUser(JSON.parse(stored));
-      } catch {
-        localStorage.removeItem("user");
+    const checkAuth = async () => {
+      const token = api.getToken();
+      if (!token) {
+        setIsLoading(false);
+        return;
       }
-    }
-    setIsLoading(false);
+      try {
+        const data = await api.request<{ user: User }>("/api/auth/me");
+        setUser(data.user);
+      } catch {
+        api.clearToken();
+        setUser(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    checkAuth();
   }, []);
 
   const signup = useCallback(
-    async (email: string, password: string, name: string, citizenship: string, residency: string) => {
+    async (
+      email: string,
+      password: string,
+      name: string,
+      citizenship: string,
+      residency: string,
+      consent: SignupConsent
+    ) => {
       setIsLoading(true);
       setError(null);
       try {
-        const newUser: User = {
-          id: `user_${Date.now()}`,
-          email,
-          name,
-          citizenship,
-          residency,
-          itinStatus: false,
-          createdAt: new Date().toISOString(),
-        };
-        localStorage.setItem("user", JSON.stringify(newUser));
-        localStorage.setItem("password", password);
-        setUser(newUser);
-        return newUser;
+        const data = await api.request<{ user: User; token: string }>("/api/auth/register", {
+          method: "POST",
+          // `consent` is evidence of informed consent. The backend may ignore it
+          // today; it is still recorded here and can be persisted server-side later.
+          body: JSON.stringify({ email, password, name, citizenship, residency, consent }),
+        });
+        api.setToken(data.token);
+        setUser(data.user);
+        return data.user;
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Signup failed");
+        const message = err instanceof Error ? err.message : "Signup failed";
+        setError(message);
         throw err;
       } finally {
         setIsLoading(false);
@@ -51,20 +64,13 @@ export const useAuth = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const stored = localStorage.getItem("user");
-      const storedPassword = localStorage.getItem("password");
-
-      if (!stored || !storedPassword) {
-        throw new Error("User not found");
-      }
-
-      const storedUser = JSON.parse(stored);
-      if (storedUser.email !== email || storedPassword !== password) {
-        throw new Error("Invalid email or password");
-      }
-
-      setUser(storedUser);
-      return storedUser;
+      const data = await api.request<{ user: User; token: string }>("/api/auth/login", {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+      });
+      api.setToken(data.token);
+      setUser(data.user);
+      return data.user;
     } catch (err) {
       const message = err instanceof Error ? err.message : "Login failed";
       setError(message);
@@ -76,8 +82,7 @@ export const useAuth = () => {
 
   const logout = useCallback(() => {
     setUser(null);
-    localStorage.removeItem("user");
-    localStorage.removeItem("password");
+    api.clearToken();
   }, []);
 
   return {

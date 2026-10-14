@@ -8,11 +8,33 @@ CREATE TABLE IF NOT EXISTS users (
   citizenship TEXT,
   residency TEXT,
   itin_status TEXT DEFAULT 'not_started' CHECK(itin_status IN ('not_started', 'pending', 'received')),
+  terms_version TEXT,
+  privacy_version TEXT,
+  consent_at TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP
 );
 
 CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
+
+-- Global fixed-window rate-limit counter (BUG-02).
+CREATE TABLE IF NOT EXISTS rate_limits (
+  key TEXT PRIMARY KEY,
+  window_start INTEGER NOT NULL,
+  count INTEGER NOT NULL DEFAULT 0
+);
+
+-- Document acceptance log (terms/privacy re-acceptance + gated form outputs).
+CREATE TABLE IF NOT EXISTS document_acceptances (
+  id TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL,
+  document_type TEXT NOT NULL CHECK(document_type IN ('terms', 'privacy', 'w7', 'oa', 'treaty_memo')),
+  document_version TEXT NOT NULL,
+  accepted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY(user_id) REFERENCES users(id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_document_acceptances_user_id ON document_acceptances(user_id);
 
 CREATE TABLE IF NOT EXISTS entities (
   id TEXT PRIMARY KEY,
@@ -22,6 +44,11 @@ CREATE TABLE IF NOT EXISTS entities (
   state TEXT,
   members_count INTEGER,
   status TEXT DEFAULT 'active' CHECK(status IN ('idle', 'active', 'dormant')),
+  owner_name TEXT,
+  owner_citizenship TEXT,
+  owner_residency TEXT,
+  owner_type TEXT CHECK(owner_type IN ('foreign', 'domestic')),
+  tax_classification TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY(user_id) REFERENCES users(id)
 );

@@ -1,30 +1,53 @@
-import React, { useEffect, useState } from "react";
-import type { Entity, Deadline } from "../types";
+import React, { useMemo, useState } from "react";
+import type { Entity, Deadline, Task } from "../types";
 import { Card, Badge, Modal } from "./UI";
-import { SAMPLE_DEADLINES } from "../data/sampleData";
+import { useTasks } from "../hooks/useTasks";
 
 interface TimelineProps {
   entity: Entity | null;
 }
 
+// ponytail: the timeline derives deadlines from the backend task list — one source
+// of truth, no separate deadline store. Tasks without a due date are omitted.
+const CATEGORY_BY_SECTION: Record<string, Deadline["category"]> = {
+  Formation: "State",
+  ITIN: "US",
+  Federal: "US",
+  Germany: "HomeCountry",
+  Banking: "Compliance",
+  Ongoing: "Compliance",
+};
+
+const daysUntil = (dueDate: string) => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const d = new Date(dueDate);
+  d.setHours(0, 0, 0, 0);
+  return Math.ceil((d.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+};
+
+const toDeadline = (t: Task): Deadline => {
+  const days = daysUntil(t.dueDate!);
+  return {
+    id: t.id,
+    entityId: t.entityId,
+    title: t.title,
+    dueDate: t.dueDate!,
+    category: CATEGORY_BY_SECTION[t.section] ?? "Compliance",
+    status: t.completed ? "completed" : days < 0 ? "overdue" : "pending",
+    urgency: days <= 7 ? "high" : days <= 30 ? "medium" : "low",
+  };
+};
+
 export const Timeline: React.FC<TimelineProps> = ({ entity }) => {
-  const [deadlines, setDeadlines] = useState<Deadline[]>([]);
+  const { tasks } = useTasks(entity?.id);
+  const deadlines = useMemo(
+    () => tasks.filter((t) => !!t.dueDate).map(toDeadline),
+    [tasks]
+  );
   const [view, setView] = useState<"list" | "calendar">("list");
   const [selectedDeadline, setSelectedDeadline] = useState<Deadline | null>(null);
   const [showDetails, setShowDetails] = useState(false);
-
-  useEffect(() => {
-    if (!entity) return;
-
-    const stored = localStorage.getItem(`deadlines_${entity.id}`);
-    if (!stored) {
-      const initialDeadlines = SAMPLE_DEADLINES.map((d) => ({ ...d, entityId: entity.id }));
-      localStorage.setItem(`deadlines_${entity.id}`, JSON.stringify(initialDeadlines));
-      setDeadlines(initialDeadlines);
-    } else {
-      setDeadlines(JSON.parse(stored));
-    }
-  }, [entity]);
 
   const getSortedDeadlines = () => {
     return [...deadlines].sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime());
@@ -52,15 +75,6 @@ export const Timeline: React.FC<TimelineProps> = ({ entity }) => {
     if (days === 0) return "TODAY";
     if (days <= 7) return `${days}d LEFT`;
     return `${days}d`;
-  };
-
-  const daysUntilDeadline = (dueDate: string) => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const deadline = new Date(dueDate);
-    deadline.setHours(0, 0, 0, 0);
-    const diff = deadline.getTime() - today.getTime();
-    return Math.ceil(diff / (1000 * 60 * 60 * 24));
   };
 
   const getCategoryColor = (category: string) => {
@@ -133,12 +147,19 @@ export const Timeline: React.FC<TimelineProps> = ({ entity }) => {
       {/* List View */}
       {view === "list" && (
         <div className="space-y-6">
+          {deadlines.length === 0 && (
+            <Card>
+              <p className="text-gray-500 dark:text-gray-400 text-center py-8">
+                No deadlines yet. Add a due date to a task in your checklist to see it here.
+              </p>
+            </Card>
+          )}
           {Array.from(monthDeadlines.entries()).map(([month, monthDL]) => (
             <div key={month}>
               <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">{month}</h2>
               <div className="space-y-3">
                 {monthDL.map((deadline) => {
-                  const days = daysUntilDeadline(deadline.dueDate);
+                  const days = daysUntil(deadline.dueDate);
 
                   return (
                     <Card

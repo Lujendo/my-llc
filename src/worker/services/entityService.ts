@@ -8,17 +8,40 @@ export class EntityService {
 
   async createEntity(
     userId: string,
-    name: string,
-    formationDate?: string,
-    state?: string,
-    membersCount?: number
+    data: {
+      name: string;
+      formationDate?: string | null;
+      state?: string | null;
+      membersCount?: number | null;
+      ownerName?: string | null;
+      ownerCitizenship?: string | null;
+      ownerResidency?: string | null;
+      ownerType?: "foreign" | "domestic" | null;
+      taxClassification?: string | null;
+    }
   ): Promise<Entity> {
-    if (!name) throw new ValidationError("Entity name is required");
+    if (!data.name) throw new ValidationError("Entity name is required");
 
     const id = generateId();
     await this.db.execute(
-      "INSERT INTO entities (id, user_id, name, formation_date, state, members_count, status) VALUES (?, ?, ?, ?, ?, ?, ?)",
-      [id, userId, name, formationDate || null, state || null, membersCount || null, "active"]
+      `INSERT INTO entities
+        (id, user_id, name, formation_date, state, members_count, status,
+         owner_name, owner_citizenship, owner_residency, owner_type, tax_classification)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        id,
+        userId,
+        data.name,
+        data.formationDate || null,
+        data.state || null,
+        data.membersCount ?? null,
+        "active",
+        data.ownerName || null,
+        data.ownerCitizenship || null,
+        data.ownerResidency || null,
+        data.ownerType || null,
+        data.taxClassification || null,
+      ]
     );
 
     const entity = await this.db.queryOne<Entity>("SELECT * FROM entities WHERE id = ?", [id]);
@@ -64,6 +87,26 @@ export class EntityService {
       updates_arr.push("state = ?");
       params.push(updates.state);
     }
+    if ("owner_name" in updates) {
+      updates_arr.push("owner_name = ?");
+      params.push(updates.owner_name);
+    }
+    if ("owner_citizenship" in updates) {
+      updates_arr.push("owner_citizenship = ?");
+      params.push(updates.owner_citizenship);
+    }
+    if ("owner_residency" in updates) {
+      updates_arr.push("owner_residency = ?");
+      params.push(updates.owner_residency);
+    }
+    if ("owner_type" in updates) {
+      updates_arr.push("owner_type = ?");
+      params.push(updates.owner_type);
+    }
+    if ("tax_classification" in updates) {
+      updates_arr.push("tax_classification = ?");
+      params.push(updates.tax_classification);
+    }
 
     if (updates_arr.length === 0) return entity;
 
@@ -82,6 +125,12 @@ export class EntityService {
     const entity = await this.getEntity(id, userId);
     if (!entity) throw new NotFoundError("Entity not found");
 
+    // BUG-01: tasks/documents FK to entities with no ON DELETE CASCADE, so the
+    // parent delete fails while children exist. Delete children first.
+    // ponytail: two extra statements; a schema-level ON DELETE CASCADE would be
+    // cleaner but SQLite cannot add it without a full table rebuild.
+    await this.db.execute("DELETE FROM tasks WHERE entity_id = ?", [id]);
+    await this.db.execute("DELETE FROM documents WHERE entity_id = ?", [id]);
     await this.db.execute("DELETE FROM entities WHERE id = ? AND user_id = ?", [id, userId]);
   }
 }

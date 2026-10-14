@@ -1,20 +1,21 @@
 import { useState, useEffect, useCallback } from "react";
 import type { Task } from "../types";
+import { api } from "../lib/api";
 
 export const useTasks = (entityId: string | undefined) => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
     if (!entityId) return;
-
-    const stored = localStorage.getItem(`tasks_${entityId}`);
-    if (stored) {
+    const fetchTasks = async () => {
       try {
-        setTasks(JSON.parse(stored));
+        const data = await api.request<{ tasks: Task[] }>(`/api/tasks?entity_id=${entityId}`);
+        setTasks(data.tasks || []);
       } catch {
-        localStorage.removeItem(`tasks_${entityId}`);
+        setTasks([]);
       }
-    }
+    };
+    fetchTasks();
   }, [entityId]);
 
   const getTasks = useCallback((section?: string) => {
@@ -22,14 +23,15 @@ export const useTasks = (entityId: string | undefined) => {
   }, [tasks]);
 
   const toggleTask = useCallback(
-    (taskId: string) => {
+    async (taskId: string) => {
       if (!entityId) throw new Error("Entity not selected");
-
-      const updated = tasks.map((t) =>
-        t.id === taskId ? { ...t, completed: !t.completed } : t
-      );
-      localStorage.setItem(`tasks_${entityId}`, JSON.stringify(updated));
-      setTasks(updated);
+      const task = tasks.find((t) => t.id === taskId);
+      if (!task) return;
+      const data = await api.request<{ task: Task }>(`/api/tasks/${taskId}`, {
+        method: "PATCH",
+        body: JSON.stringify({ completed: !task.completed }),
+      });
+      setTasks((prev) => prev.map((t) => (t.id === taskId ? data.task : t)));
     },
     [tasks, entityId]
   );

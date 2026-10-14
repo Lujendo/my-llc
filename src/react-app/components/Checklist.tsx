@@ -1,42 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import type { Entity, Task } from "../types";
-import { Card, Badge, Modal, Alert } from "./UI";
-import { SAMPLE_TASKS } from "../data/sampleData";
+import { Card, Modal } from "./UI";
+import { useTasks } from "../hooks/useTasks";
 
 interface ChecklistProps {
   entity: Entity | null;
 }
 
-const SECTIONS = ["Formation", "ITIN", "Federal", "German", "Banking", "Ongoing"];
+// Section keys must match the backend seed/validation enum (src/worker/routes/tasks.ts).
+const SECTIONS = ["Formation", "ITIN", "Federal", "Germany", "Banking", "Ongoing"];
 
 export const Checklist: React.FC<ChecklistProps> = ({ entity }) => {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const { tasks, toggleTask, getProgress } = useTasks(entity?.id);
   const [expandedSection, setExpandedSection] = useState<string | null>("Formation");
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [showInstructions, setShowInstructions] = useState(false);
-
-  useEffect(() => {
-    if (!entity) return;
-
-    const stored = localStorage.getItem(`tasks_${entity.id}`);
-    if (!stored) {
-      const initialTasks = SAMPLE_TASKS.map((t) => ({ ...t, entityId: entity.id }));
-      localStorage.setItem(`tasks_${entity.id}`, JSON.stringify(initialTasks));
-      setTasks(initialTasks);
-    } else {
-      setTasks(JSON.parse(stored));
-    }
-  }, [entity]);
-
-  const toggleTask = (taskId: string) => {
-    if (!entity) return;
-
-    const updated = tasks.map((t) =>
-      t.id === taskId ? { ...t, completed: !t.completed } : t
-    );
-    localStorage.setItem(`tasks_${entity.id}`, JSON.stringify(updated));
-    setTasks(updated);
-  };
 
   const getSectionProgress = (section: string) => {
     const sectionTasks = tasks.filter((t) => t.section === section);
@@ -49,8 +27,7 @@ export const Checklist: React.FC<ChecklistProps> = ({ entity }) => {
   };
 
   const getTotalProgress = () => {
-    if (tasks.length === 0) return 0;
-    return Math.round((tasks.filter((t) => t.completed).length / tasks.length) * 100);
+    return getProgress();
   };
 
   if (!entity) {
@@ -68,7 +45,6 @@ export const Checklist: React.FC<ChecklistProps> = ({ entity }) => {
         <p className="text-gray-600 dark:text-gray-400">Complete all tasks to ensure full compliance</p>
       </div>
 
-      {/* Overall Progress */}
       <Card>
         <div className="mb-4">
           <div className="flex items-center justify-between mb-2">
@@ -87,7 +63,6 @@ export const Checklist: React.FC<ChecklistProps> = ({ entity }) => {
         </div>
       </Card>
 
-      {/* Sections */}
       <div className="space-y-3">
         {SECTIONS.map((section) => {
           const sectionTasks = getSectionTasks(section);
@@ -115,7 +90,6 @@ export const Checklist: React.FC<ChecklistProps> = ({ entity }) => {
                 </div>
               </div>
 
-              {/* Section Progress Bar */}
               <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
                 <div
                   className="bg-success h-full transition-all duration-300"
@@ -123,7 +97,6 @@ export const Checklist: React.FC<ChecklistProps> = ({ entity }) => {
                 />
               </div>
 
-              {/* Tasks */}
               {isExpanded && (
                 <div className="mt-4 space-y-3 border-t border-gray-200 dark:border-gray-700 pt-4">
                   {sectionTasks.map((task) => (
@@ -140,30 +113,28 @@ export const Checklist: React.FC<ChecklistProps> = ({ entity }) => {
                       />
                       <div className="flex-1 min-w-0">
                         <p
-                          className={`font-medium text-sm ${
-                            task.completed
-                              ? "text-gray-500 dark:text-gray-500 line-through"
-                              : "text-gray-900 dark:text-white"
+                          className={`font-medium text-gray-900 dark:text-white ${
+                            task.completed ? "line-through text-gray-500 dark:text-gray-400" : ""
                           }`}
                         >
                           {task.title}
                         </p>
                         {task.dueDate && (
-                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
                             Due: {new Date(task.dueDate).toLocaleDateString()}
                           </p>
                         )}
                       </div>
-                      {!task.completed && task.instructions && (
+                      {task.instructions && (
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
                             setSelectedTask(task);
                             setShowInstructions(true);
                           }}
-                          className="px-2 py-1 text-xs font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded"
+                          className="text-xs text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
                         >
-                          Help
+                          Details
                         </button>
                       )}
                     </div>
@@ -175,47 +146,35 @@ export const Checklist: React.FC<ChecklistProps> = ({ entity }) => {
         })}
       </div>
 
-      {/* Instructions Modal */}
       <Modal
         isOpen={showInstructions}
-        title={selectedTask?.title || "Task Instructions"}
-        onClose={() => {
-          setShowInstructions(false);
-          setSelectedTask(null);
-        }}
+        onClose={() => setShowInstructions(false)}
+        title={selectedTask?.title || ""}
       >
-        {selectedTask && (
-          <div className="space-y-4">
-            <div>
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Section</h4>
-              <Badge label={selectedTask.section} status="info" />
-            </div>
-
-            {selectedTask.dueDate && (
-              <div>
-                <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Due Date</h4>
-                <p className="text-gray-700 dark:text-gray-300">
-                  {new Date(selectedTask.dueDate).toLocaleDateString("en-US", {
-                    weekday: "long",
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </p>
-              </div>
-            )}
-
-            <div>
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Instructions</h4>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{selectedTask.instructions}</p>
-            </div>
-
-            <Alert
-              type="info"
-              message="For detailed guidance, consult IRS publication or your tax advisor."
-            />
+        <div className="space-y-4">
+          <div>
+            <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Instructions</h4>
+            <p className="text-gray-600 dark:text-gray-400 whitespace-pre-wrap">
+              {selectedTask?.instructions}
+            </p>
           </div>
-        )}
+          {selectedTask?.dueDate && (
+            <div>
+              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Due Date</h4>
+              <p className="text-gray-600 dark:text-gray-400">
+                {new Date(selectedTask.dueDate).toLocaleDateString()}
+              </p>
+            </div>
+          )}
+          <div className="flex justify-end">
+            <button
+              onClick={() => setShowInstructions(false)}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Close
+            </button>
+          </div>
+        </div>
       </Modal>
     </div>
   );

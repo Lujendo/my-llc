@@ -43,7 +43,7 @@ export const Navigation: React.FC<NavigationProps> = ({
           <div className="flex items-center gap-2">
             <span className="text-2xl font-bold text-blue-600">MY-LLC</span>
             <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 hidden sm:inline">
-              TAX COMPLIANCE
+              LLC FILINGS
             </span>
           </div>
 

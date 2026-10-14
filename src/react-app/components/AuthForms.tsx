@@ -1,20 +1,32 @@
 import React, { useState } from "react";
 import { Button, Alert } from "./UI";
+import { LegalCopy } from "./LegalCopy";
+import { SIGNUP_CONSENT_COPY, SIGNUP_ATTESTATION_COPY, TERMS_VERSION, PRIVACY_VERSION, type SignupConsent } from "../lib/legal";
 import type { User } from "../types";
 
 interface AuthFormsProps {
-  onSignup: (email: string, password: string, name: string, citizenship: string, residency: string) => Promise<User>;
+  onSignup: (
+    email: string,
+    password: string,
+    name: string,
+    citizenship: string,
+    residency: string,
+    consent: SignupConsent
+  ) => Promise<User>;
   onLogin: (email: string, password: string) => Promise<User>;
   onAuthSuccess: () => void;
+  onOpenLegal: (view: "terms" | "privacy") => void;
 }
 
-export const AuthForms: React.FC<AuthFormsProps> = ({ onSignup, onLogin, onAuthSuccess }) => {
+export const AuthForms: React.FC<AuthFormsProps> = ({ onSignup, onLogin, onAuthSuccess, onOpenLegal }) => {
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [citizenship, setCitizenship] = useState("");
   const [residency, setResidency] = useState("");
+  const [consent, setConsent] = useState(false);
+  const [attestation, setAttestation] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -28,7 +40,24 @@ export const AuthForms: React.FC<AuthFormsProps> = ({ onSignup, onLogin, onAuthS
         if (!name || !citizenship || !residency) {
           throw new Error("Please fill in all fields");
         }
-        await onSignup(email, password, name, citizenship, residency);
+        // Legal/trust boundary: account creation requires explicit consent.
+        if (!consent) {
+          throw new Error(
+            "You must accept the Terms of Service and Privacy Policy to create an account."
+          );
+        }
+        if (!attestation) {
+          throw new Error("You must confirm you are at least 18 years old to create an account.");
+        }
+        const consentRecord: SignupConsent = {
+          acceptedTerms: true,
+          acceptedPrivacy: true,
+          attestedAdult: true,
+          termsVersion: TERMS_VERSION,
+          privacyVersion: PRIVACY_VERSION,
+          timestamp: new Date().toISOString(),
+        };
+        await onSignup(email, password, name, citizenship, residency, consentRecord);
       } else {
         await onLogin(email, password);
       }
@@ -46,7 +75,7 @@ export const AuthForms: React.FC<AuthFormsProps> = ({ onSignup, onLogin, onAuthS
         {/* Header */}
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2 text-center">MY-LLC</h1>
         <p className="text-center text-gray-600 dark:text-gray-400 mb-6">
-          Tax compliance for foreign LLC owners
+          Organize your US LLC filings
         </p>
 
         {/* Error Alert */}
@@ -147,10 +176,42 @@ export const AuthForms: React.FC<AuthFormsProps> = ({ onSignup, onLogin, onAuthS
                   <option value="Other">Other</option>
                 </select>
               </div>
+
+              {/* Verbatim signup consent from content/legal/REVIEW-CHECKBOX-COPY.md §6.
+                  Not pre-ticked; the Sign Up button stays disabled until ticked. */}
+              <label className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+                <input
+                  type="checkbox"
+                  checked={consent}
+                  onChange={(e) => setConsent(e.target.checked)}
+                  className="mt-1"
+                />
+                <span>
+                  <LegalCopy text={SIGNUP_CONSENT_COPY} onOpenLegal={onOpenLegal} />
+                </span>
+              </label>
+
+              {/* 18+/capacity attestation — same source file, §6. Not pre-ticked. */}
+              <label className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+                <input
+                  type="checkbox"
+                  checked={attestation}
+                  onChange={(e) => setAttestation(e.target.checked)}
+                  className="mt-1"
+                />
+                <span>{SIGNUP_ATTESTATION_COPY}</span>
+              </label>
             </>
           )}
 
-          <Button type="submit" variant="primary" size="lg" isLoading={isLoading} className="w-full">
+          <Button
+            type="submit"
+            variant="primary"
+            size="lg"
+            isLoading={isLoading}
+            disabled={mode === "signup" && (!consent || !attestation)}
+            className="w-full"
+          >
             {mode === "login" ? "Log In" : "Sign Up"}
           </Button>
         </form>
@@ -167,18 +228,6 @@ export const AuthForms: React.FC<AuthFormsProps> = ({ onSignup, onLogin, onAuthS
             {mode === "login" ? "Sign Up" : "Log In"}
           </button>
         </div>
-
-        {/* Test Account Info */}
-        {mode === "login" && (
-          <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-            <p className="text-xs font-semibold text-blue-900 dark:text-blue-400 mb-2">TEST ACCOUNT (MVP)</p>
-            <p className="text-xs text-blue-800 dark:text-blue-300">
-              Email: <code>test@example.com</code>
-              <br />
-              Password: <code>test123</code>
-            </p>
-          </div>
-        )}
       </div>
     </div>
   );
