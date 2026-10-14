@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { X } from "lucide-react";
 import { Card, Button, Alert } from "./UI";
 
 interface SettingsProps {
@@ -38,9 +39,9 @@ export const Settings: React.FC<SettingsProps> = ({ user, onClose }) => {
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Settings</h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 text-2xl"
+            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
           >
-            ✕
+            <X className="w-6 h-6" />
           </button>
         </div>
 

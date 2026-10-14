@@ -1,4 +1,5 @@
 import React from "react";
+import { CheckCircle2, XCircle, AlertTriangle, Info, X } from "lucide-react";
 
 interface AlertProps {
   type: "success" | "error" | "warning" | "info";
@@ -16,16 +17,17 @@ export const Alert: React.FC<AlertProps> = ({ type, title, message, onClose }) =
   };
 
   const icons = {
-    success: "✓",
-    error: "✕",
-    warning: "⚠",
-    info: "ℹ",
+    success: CheckCircle2,
+    error: XCircle,
+    warning: AlertTriangle,
+    info: Info,
   };
+  const Icon = icons[type];
 
   return (
     <div className={`${typeStyles[type]} rounded-lg p-4 mb-4 flex items-start justify-between`}>
       <div className="flex items-start gap-3">
-        <span className="text-xl font-bold mt-0.5">{icons[type]}</span>
+        <Icon className="w-5 h-5 mt-0.5 shrink-0" />
         <div>
           {title && <h4 className="font-semibold mb-1">{title}</h4>}
           <p className="text-sm">{message}</p>
@@ -34,9 +36,9 @@ export const Alert: React.FC<AlertProps> = ({ type, title, message, onClose }) =
       {onClose && (
         <button
           onClick={onClose}
-          className="ml-4 font-bold opacity-50 hover:opacity-100 transition-opacity"
+          className="ml-4 opacity-50 hover:opacity-100 transition-opacity"
         >
-          ✕
+          <X className="w-5 h-5" />
         </button>
       )}
     </div>

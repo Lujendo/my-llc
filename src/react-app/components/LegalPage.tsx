@@ -1,4 +1,5 @@
 import React from "react";
+import { ArrowLeft } from "lucide-react";
 
 // ponytail: tiny markdown renderer, no dependency. Covers exactly what the
 // legal docs use (headings, bold, code, links, lists, tables, blockquote, hr).
@@ -143,9 +144,9 @@ export const LegalPage: React.FC<LegalPageProps> = ({ title, markdown, onBack })
       <div className="max-w-3xl mx-auto px-4 py-3 flex items-center gap-3">
         <button
           onClick={onBack}
-          className="text-blue-600 hover:underline text-sm font-medium"
+          className="inline-flex items-center gap-1 text-blue-600 hover:underline text-sm font-medium"
         >
-          ← Back
+          <ArrowLeft className="w-4 h-4" /> Back
         </button>
         <h1 className="text-lg font-bold text-gray-900 dark:text-white">{title}</h1>
       </div>

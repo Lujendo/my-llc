@@ -1,4 +1,16 @@
 import React, { useState } from "react";
+import {
+  LayoutDashboard,
+  ListChecks,
+  Calendar,
+  Globe,
+  FileText,
+  Menu,
+  Building2,
+  Settings,
+  LogOut,
+  ChevronDown,
+} from "lucide-react";
 import type { Entity } from "../types";
 
 interface NavigationProps {
@@ -28,11 +40,11 @@ export const Navigation: React.FC<NavigationProps> = ({
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
   const navItems = [
-    { id: "dashboard", label: "Dashboard", icon: "📊" },
-    { id: "checklist", label: "Checklist", icon: "✓" },
-    { id: "timeline", label: "Timeline", icon: "📅" },
-    { id: "treaty", label: "Treaty", icon: "🌍" },
-    { id: "documents", label: "Documents", icon: "📄" },
+    { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
+    { id: "checklist", label: "Checklist", icon: ListChecks },
+    { id: "timeline", label: "Timeline", icon: Calendar },
+    { id: "treaty", label: "Treaty", icon: Globe },
+    { id: "documents", label: "Documents", icon: FileText },
   ];
 
   return (
@@ -53,13 +65,13 @@ export const Navigation: React.FC<NavigationProps> = ({
               <button
                 key={item.id}
                 onClick={() => onNavigate(item.id)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   currentView === item.id
                     ? "bg-blue-600 text-white"
                     : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                 }`}
               >
-                <span className="mr-1">{item.icon}</span>
+                <item.icon className="w-5 h-5" />
                 {item.label}
               </button>
             ))}
@@ -90,7 +102,7 @@ export const Navigation: React.FC<NavigationProps> = ({
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="md:hidden p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
             >
-              ☰
+              <Menu className="w-6 h-6" />
             </button>
 
             {/* User Menu Button */}
@@ -105,7 +117,7 @@ export const Navigation: React.FC<NavigationProps> = ({
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300 hidden sm:inline">
                   {user?.name?.split(" ")[0]}
                 </span>
-                <span className="text-gray-600 dark:text-gray-400">▼</span>
+                <ChevronDown className="w-4 h-4 text-gray-600 dark:text-gray-400" />
               </button>
 
               {/* User Dropdown Menu */}
@@ -121,9 +133,10 @@ export const Navigation: React.FC<NavigationProps> = ({
                       onShowEntityManager();
                       setIsUserMenuOpen(false);
                     }}
-                    className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
-                    🏢 Entities
+                    <Building2 className="w-4 h-4" />
+                    Entities
                   </button>
 
                   <button
@@ -131,9 +144,10 @@ export const Navigation: React.FC<NavigationProps> = ({
                       onShowSettings();
                       setIsUserMenuOpen(false);
                     }}
-                    className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
-                    ⚙️ Settings
+                    <Settings className="w-4 h-4" />
+                    Settings
                   </button>
 
                   <button
@@ -141,9 +155,10 @@ export const Navigation: React.FC<NavigationProps> = ({
                       onLogout();
                       setIsUserMenuOpen(false);
                     }}
-                    className="w-full text-left px-4 py-2 text-sm text-danger hover:bg-danger/5"
+                    className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-danger hover:bg-danger/5"
                   >
-                    🚪 Logout
+                    <LogOut className="w-4 h-4" />
+                    Logout
                   </button>
                 </div>
               )}
@@ -161,13 +176,13 @@ export const Navigation: React.FC<NavigationProps> = ({
                   onNavigate(item.id);
                   setIsMobileMenuOpen(false);
                 }}
-                className={`w-full text-left px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`flex items-center gap-2 w-full text-left px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   currentView === item.id
                     ? "bg-blue-600 text-white"
                     : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                 }`}
               >
-                <span className="mr-2">{item.icon}</span>
+                <item.icon className="w-5 h-5" />
                 {item.label}
               </button>
             ))}

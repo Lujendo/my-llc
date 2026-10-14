@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { ExternalLink } from "lucide-react";
 import type { Entity, User } from "../types";
 import { Card, Button, Modal, Alert } from "./UI";
 import {
@@ -565,9 +566,10 @@ export const DocumentGenerator: React.FC<DocumentGeneratorProps> = ({ entity, us
                     href={W7_OFFICIAL_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center px-4 py-2 rounded-lg bg-white dark:bg-gray-700 border border-blue-600 text-blue-700 dark:text-blue-300 text-sm font-medium hover:bg-blue-50 dark:hover:bg-gray-600"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white dark:bg-gray-700 border border-blue-600 text-blue-700 dark:text-blue-300 text-sm font-medium hover:bg-blue-50 dark:hover:bg-gray-600"
                   >
-                    Open the official IRS Form W-7 ↗
+                    Open the official IRS Form W-7
+                    <ExternalLink className="w-4 h-4" />
                   </a>
                   <Button variant="primary" onClick={copyAll} disabled={!canCopyAll}>
                     {copied === "__all__" ? "Copied!" : "Copy all values"}

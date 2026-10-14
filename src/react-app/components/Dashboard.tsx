@@ -1,4 +1,5 @@
 import React from "react";
+import { Check } from "lucide-react";
 import type { Entity } from "../types";
 import { Card, Badge, Button } from "./UI";
 import { useTasks } from "../hooks/useTasks";
@@ -154,7 +155,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, entity, onNavigate }
               .slice(0, 5)
               .map((task) => (
                 <div key={task.id} className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
-                  <span className="text-success font-bold">✓</span>
+                  <Check className="w-4 h-4 text-success shrink-0" />
                   <span>{task.title}</span>
                 </div>
               ))

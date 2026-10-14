@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { ChevronDown, ChevronRight } from "lucide-react";
 import type { Entity, Task } from "../types";
 import { Card, Modal } from "./UI";
 import { useTasks } from "../hooks/useTasks";
@@ -86,7 +87,11 @@ export const Checklist: React.FC<ChecklistProps> = ({ entity }) => {
                   <div className="text-right">
                     <span className="text-lg font-bold text-gray-900 dark:text-white">{progress}%</span>
                   </div>
-                  <span className="text-2xl">{isExpanded ? "▼" : "▶"}</span>
+                  {isExpanded ? (
+                    <ChevronDown className="w-6 h-6" />
+                  ) : (
+                    <ChevronRight className="w-6 h-6" />
+                  )}
                 </div>
               </div>
 

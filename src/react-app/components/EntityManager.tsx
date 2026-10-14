@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import type { Entity } from "../types";
 import type { EntityInput } from "../hooks/useEntities";
+import { X } from "lucide-react";
 import { Card, Button, Alert } from "./UI";
 import { LegalCopy } from "./LegalCopy";
 import { ENTITY_DISCLAIMER } from "../lib/legal";
@@ -117,9 +118,9 @@ export const EntityManager: React.FC<EntityManagerProps> = ({
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">My Entities</h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 text-2xl"
+            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
           >
-            ✕
+            <X className="w-6 h-6" />
           </button>
         </div>
 

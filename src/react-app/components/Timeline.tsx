@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import { Check, AlertTriangle, X } from "lucide-react";
 import type { Entity, Deadline, Task } from "../types";
 import { Card, Badge, Modal } from "./UI";
 import { useTasks } from "../hooks/useTasks";
@@ -187,15 +188,27 @@ export const Timeline: React.FC<TimelineProps> = ({ entity }) => {
                         </div>
                         <div className="text-right">
                           <Badge label={getUrgencyLabel(days)} status={getStatusBadge(deadline.status)} />
-                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                            {deadline.status === "completed" && "✓ Completed"}
+                          <p className="inline-flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 mt-2">
+                            {deadline.status === "completed" && (
+                              <>
+                                <Check className="w-3.5 h-3.5" /> Completed
+                              </>
+                            )}
                             {deadline.status === "pending" &&
-                              (days <= 7
-                                ? `⚠️ Due Soon`
-                                : days <= 30
-                                  ? "Upcoming"
-                                  : "Scheduled")}
-                            {deadline.status === "overdue" && "✕ Overdue"}
+                              (days <= 7 ? (
+                                <>
+                                  <AlertTriangle className="w-3.5 h-3.5" /> Due Soon
+                                </>
+                              ) : days <= 30 ? (
+                                "Upcoming"
+                              ) : (
+                                "Scheduled"
+                              ))}
+                            {deadline.status === "overdue" && (
+                              <>
+                                <X className="w-3.5 h-3.5" /> Overdue
+                              </>
+                            )}
                           </p>
                         </div>
                       </div>
