@@ -1,15 +1,15 @@
 # MY-LLC Dashboard: Week 1 Backend Delivery
 
-## ✅ DELIVERABLES COMPLETED
+## DELIVERABLES COMPLETED
 
 ### Database Schema (D1 SQLite)
-- ✅ `users` table with JWT support
-- ✅ `entities` table (LLCs with formation info)
-- ✅ `tasks` table (compliance checklist)
-- ✅ `documents` table (W-7, agreements, treaty memos)
-- ✅ `notifications` table (deadline alerts)
-- ✅ Indexes on foreign keys and query columns
-- ✅ Schema SQL script ready for deployment
+- `users` table with JWT support
+- `entities` table (LLCs with formation info)
+- `tasks` table (compliance checklist)
+- `documents` table (W-7, agreements, treaty memos)
+- `notifications` table (deadline alerts)
+- Indexes on foreign keys and query columns
+- Schema SQL script ready for deployment
 
 ### Priority 1 Routes (All Tested)
 
@@ -38,7 +38,7 @@ PATCH /api/tasks/:id                    200   Mark complete/incomplete
 GET  /api/tasks/upcoming?entity_id=...  200   Get deadlines (next N days)
 ```
 
-### Security ✅
+### Security
 - JWT token verification on all protected routes
 - Input validation on all endpoints
 - Parameterized SQL queries (no injection)
@@ -46,14 +46,14 @@ GET  /api/tasks/upcoming?entity_id=...  200   Get deadlines (next N days)
 - Error responses don't leak data
 - SHA256 + salt password hashing (MVP; will upgrade to bcryptjs)
 
-### Code Quality ✅
+### Code Quality
 - TypeScript strict mode, zero errors
 - Clean service layer (business logic)
 - Middleware for cross-cutting concerns
 - Reusable error handling
 - Database query helper class
 
-### Testing ✅
+### Testing
 All routes tested locally with `wrangler dev`:
 - Register new user → get JWT
 - Login existing user → get JWT
@@ -61,23 +61,23 @@ All routes tested locally with `wrangler dev`:
 - CRUD operations verify user ownership
 - Upcoming tasks filter correctly
 
-### Database Seeding ✅
+### Database Seeding
 Seed data includes:
 - Test user: Andrea Lujendo (Italy/Germany)
 - Test entity: Royalty Lite LLC (Wyoming)
 - 5 sample tasks (ITIN, Federal, Germany, Banking, Ongoing)
 
-## 📊 CASE STUDY FLOW (Andrea Lujendo)
+## CASE STUDY FLOW (Andrea Lujendo)
 
-1. `POST /api/auth/register` → User created, JWT returned ✅
-2. `POST /api/entities` → Creates Royalty Lite LLC ✅
-3. `GET /api/tasks?entity_id=...` → Returns 5 tasks (ITIN pending, etc) ✅
-4. `GET /api/tasks/upcoming?days=30` → Returns deadlines with due dates ✅
-5. `PATCH /api/tasks/:id` → Mark task complete ✅
+1. `POST /api/auth/register` → User created, JWT returned
+2. `POST /api/entities` → Creates Royalty Lite LLC
+3. `GET /api/tasks?entity_id=...` → Returns 5 tasks (ITIN pending, etc)
+4. `GET /api/tasks/upcoming?days=30` → Returns deadlines with due dates
+5. `PATCH /api/tasks/:id` → Mark task complete
 
 Treaty analyzer & document generation ready for Priority 2.
 
-## 🚀 DEPLOYMENT READINESS
+## DEPLOYMENT READINESS
 
 **Ready to deploy to Cloudflare Workers:**
 ```bash
@@ -90,7 +90,7 @@ npx wrangler deploy
 - Run schema.sql on remote D1
 - (Optional) Run seed.sql for test data
 
-## 📋 WHAT'S NOT YET DONE (Priority 2)
+## WHAT'S NOT YET DONE (Priority 2)
 
 - Documents API (create, export PDF)
 - Treaty analysis logic
@@ -99,14 +99,14 @@ npx wrangler deploy
 - Refresh tokens
 - OAuth (Google/GitHub)
 
-## 📝 NOTES
+## NOTES
 
 - **Password hashing**: Currently SHA256 (MVP only). Before production, use bcryptjs or Argon2id
 - **CORS**: Enabled for all origins (fine for MVP, lock down before prod)
 - **Error handling**: All errors caught, logged, responses sanitized
 - **Database**: No ORM = simpler, faster for Workers. Raw D1 queries with parameterization
 
-## 🎯 NEXT (Week 2)
+## NEXT (Week 2)
 
 1. Priority 2 routes (documents, treaty analysis)
 2. Frontend integration
@@ -116,7 +116,7 @@ npx wrangler deploy
 
 ---
 
-**Status**: ✅ Week 1 Complete  
+**Status**: Week 1 Complete  
 **Lines of Code**: ~1,200 (backend)  
 **Test Coverage**: All Priority 1 routes  
 **Ready for**: Frontend integration + staging

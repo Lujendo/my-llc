@@ -54,21 +54,21 @@
 **Layout:**
 ```
 ┌─────────────────────────────────────┐
-│ Welcome, Andrea Lujendo Ventrucci    │
-│ Royalty Lite LLC (Wyoming)           │
+│ Welcome, Andrea Lujendo Ventrucci   │
+│ Royalty Lite LLC (Wyoming)          │
 ├─────────────────────────────────────┤
-│ UPCOMING DEADLINES (Next 30 Days)    │
-│ • Oct 20: Mail W-7 to IRS ⚠️ HIGH  │
+│ UPCOMING DEADLINES (Next 30 Days)   │
+│ • Oct 20: Mail W-7 to IRS HIGH      │
 │ • Nov 15: Complete German Form      │
 │ • Dec 1: FATCA Questionnaire        │
 ├─────────────────────────────────────┤
-│ COMPLIANCE STATUS                    │
-│ ✓ Operating Agreement Signed        │
-│ ✗ ITIN Application (Pending)       │
-│ ✗ German Tax Filing                 │
+│ COMPLIANCE STATUS                   │
+│ Operating Agreement Signed          │
+│ ITIN Application (Pending)          │
+│ German Tax Filing                   │
 ├─────────────────────────────────────┤
-│ QUICK ACTIONS                        │
-│ [Fill W-7] [Download Docs] [Schedule] │
+│ QUICK ACTIONS                       │
+│[Fill W-7] [Download Docs] [Schedule]│
 └─────────────────────────────────────┘
 ```
 
@@ -104,10 +104,10 @@
    - When foreign assets >$200k: File FATCA
 
 **Features:**
-- ✅ Red/yellow/green status (due soon / upcoming / completed)
-- ✅ Click-through to instructions and forms
-- ✅ Email/SMS reminders (configurable)
-- ✅ PDF export of timeline
+- Red/yellow/green status (due soon / upcoming / completed)
+- Click-through to instructions and forms
+- Email/SMS reminders (configurable)
+- PDF export of timeline
 
 ---
 
@@ -178,9 +178,9 @@ TREATY ANALYSIS: Andrea Lujendo (Italy → Germany → US LLC)
 ═══════════════════════════════════════
 
 APPLICABLE TREATY:
-✅ US-Italy Income Tax Treaty (1984, as amended)
-✅ US-Germany Income Tax Treaty (2006)
-⚠️ Germany-Italy Tax Cooperation Agreement (OECD)
+US-Italy Income Tax Treaty (1984, as amended)
+US-Germany Income Tax Treaty (2006)
+Germany-Italy Tax Cooperation Agreement (OECD)
 
 YOUR SITUATION:
 • Entity: Disregarded LLC (single-member, transparent for US tax)
@@ -189,7 +189,7 @@ YOUR SITUATION:
 • Citizenship: Italy
 
 DOUBLE TAXATION RISK:
-🔴 HIGH (2026) — German tax authorities questioning treaty relief for disregarded entities
+HIGH (2026) — German tax authorities questioning treaty relief for disregarded entities
 • Potential US tax: 37% federal + 3.8% NIIT = ~41%
 • Potential German tax: ~42% income tax + solidarity surcharge
 • Overlapped: 83% combined (worst case)
@@ -213,19 +213,19 @@ German tax: -$0 (treaty exclusion)
 Effective rate: 37%
 
 NEXT STEPS:
-⚠️ Consult German tax advisor (Steuerberater) by Dec 2026
-⚠️ Prepare treaty position statement
-⚠️ Track BZSt position updates through 2026-2027
+Consult German tax advisor (Steuerberater) by Dec 2026
+Prepare treaty position statement
+Track BZSt position updates through 2026-2027
 ═══════════════════════════════════════
 ```
 
 **Features:**
-- ✅ Dynamic treaty selector (based on citizenship/residency)
-- ✅ Risk assessment (low/medium/high)
-- ✅ Filing order recommendations
-- ✅ Downloadable treaty position memo template
-- ✅ Links to treaty text, IRS guidance, foreign tax authority info
-- ✅ Email report to user's tax advisor
+- Dynamic treaty selector (based on citizenship/residency)
+- Risk assessment (low/medium/high)
+- Filing order recommendations
+- Downloadable treaty position memo template
+- Links to treaty text, IRS guidance, foreign tax authority info
+- Email report to user's tax advisor
 
 ---
 
@@ -438,13 +438,13 @@ CREATE TABLE notifications (
 ### **Phase 1: MVP (Q4 2026 — Weeks 1-4)**
 **Target:** Launch functional dashboard for single-entity users
 
-- ✅ User signup/login (email + password, no OAuth yet)
-- ✅ Entity creation (one LLC per user)
-- ✅ Timeline view (static deadlines for non-resident alien scenario)
-- ✅ Checklist (6 sections, 20+ tasks)
-- ✅ Treaty analyzer (Italy → Germany → US only)
-- ✅ Document generator (W-7, Operating Agreement)
-- ✅ Basic notifications (email reminders)
+- User signup/login (email + password, no OAuth yet)
+- Entity creation (one LLC per user)
+- Timeline view (static deadlines for non-resident alien scenario)
+- Checklist (6 sections, 20+ tasks)
+- Treaty analyzer (Italy → Germany → US only)
+- Document generator (W-7, Operating Agreement)
+- Basic notifications (email reminders)
 
 **Definition of Done:**
 - [ ] Deployed to Cloudflare Workers
@@ -488,17 +488,17 @@ CREATE TABLE notifications (
    - Business Type: Holding company
 
 3. **View Timeline**
-   - ⚠️ Oct 20: Mail W-7 to IRS (7 days remaining)
+   - Oct 20: Mail W-7 to IRS (7 days remaining)
    - Dec 15: ITIN notice expected (weeks 7-11)
    - May 31, 2027: German tax return due
    - June 15, 2027: Form 1040-NR due (if income)
    - Aug 12, 2027: Wyoming annual report due
 
 4. **Complete Checklist**
-   - ✓ Operating Agreement signed
-   - ✗ ITIN (W-7) — [Click: Download pre-filled W-7]
-   - ✗ FBAR assessment (< $10k, marked "Not Required")
-   - ✗ Treaty analysis pending
+   - Operating Agreement signed
+   - ITIN (W-7) — [Click: Download pre-filled W-7]
+   - FBAR assessment (< $10k, marked "Not Required")
+   - Treaty analysis pending
 
 5. **Run Treaty Analyzer**
    - Input: Italy citizen, Germany resident, disregarded LLC

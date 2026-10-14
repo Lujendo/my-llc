@@ -1,14 +1,18 @@
 # PRODUCTION DEPLOY — MY-LLC Dashboard
 
-**Status: PREPPED, NOT DEPLOYED.** Everything below is ready. The production
-deploy itself has **not** been run — CEO approved *prep*, not the prod deploy.
+**Status: DEPLOYED** at `https://my-llc.info-eac.workers.dev`.
 
-Prod Worker name: `my-llc-production` (via `env.production` in `wrangler.json`)
-Expected URL: `https://my-llc-production.info-eac.workers.dev`
+Prod Worker name: `my-llc` (via the `env.production.name` override in `wrangler.json`)
+Production URL: `https://my-llc.info-eac.workers.dev`
+
+> **Name override:** `env.production.name = "my-llc"` cancels wrangler's default
+> `--env production` suffix, so production deploys to the **`my-llc`** worker
+> (not `my-llc-production`). Production deploys **must** use
+> `npx wrangler deploy --env production -c wrangler.json`.
 
 ---
 
-## ⚠️ The one trap to remember
+## The one trap to remember
 
 A bare `wrangler deploy` in this repo **does not use `wrangler.json`**. It reads
 `.wrangler/deploy/config.json`, which redirects to the Vite build artifact

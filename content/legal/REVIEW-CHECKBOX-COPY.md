@@ -18,7 +18,7 @@ Plain English, short sentences, ESL-friendly. Keep the meaning if you translate;
 
 **Label (verbatim):**
 
-> ☐ I confirm I have consulted, or will consult, a qualified US tax professional before filing this form with the IRS.
+> I confirm I have consulted, or will consult, a qualified US tax professional before filing this form with the IRS.
 
 **Supporting line under the checkbox (verbatim):**
 
@@ -35,11 +35,11 @@ Plain English, short sentences, ESL-friendly. Keep the meaning if you translate;
 
 **Banner (verbatim):**
 
-> ⚠️ **Draft only — not tax advice.** This form was generated from the information you entered. It may contain errors or be out of date. Have a qualified US tax professional review it before you file. You are responsible for the final filing.
+> **Warning:** **Draft only — not tax advice.** This form was generated from the information you entered. It may contain errors or be out of date. Have a qualified US tax professional review it before you file. You are responsible for the final filing.
 
 **Short version (for tight spaces, verbatim):**
 
-> ⚠️ Draft only — not tax advice. Review with a qualified professional before filing.
+> **Warning:** Draft only — not tax advice. Review with a qualified professional before filing.
 
 ---
 

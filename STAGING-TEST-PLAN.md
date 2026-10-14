@@ -7,7 +7,7 @@
 
 ---
 
-## 📋 Test Scenarios
+## Test Scenarios
 
 ### Scenario 1: Andrea Lujendo - Royalty Lite LLC
 
@@ -35,7 +35,7 @@ POST /api/auth/register
 - [ ] Token expires in ~15 minutes
 
 **Actual Results:**  
-✅ PASS - Token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`
+PASS - Token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`
 
 ---
 
@@ -53,7 +53,7 @@ GET https://my-llc-staging.info-eac.workers.dev/
 - [ ] Login form visible
 
 **Actual Results:**  
-✅ PASS - Frontend loads, HTTP 200
+PASS - Frontend loads, HTTP 200
 
 ---
 
@@ -72,7 +72,7 @@ POST /api/auth/login
 - [ ] Token matches signup token (or new valid token)
 
 **Actual Results:**  
-✅ PASS
+PASS
 
 ---
 
@@ -89,7 +89,7 @@ Authorization: Bearer <JWT_TOKEN>
 - [ ] Data matches signup info
 
 **Actual Results:**  
-✅ PASS
+PASS
 
 ---
 
@@ -113,7 +113,7 @@ Authorization: Bearer <JWT_TOKEN>
 - [ ] Entity ID can be used for subsequent queries
 
 **Actual Results:**  
-✅ PASS - Entity ID: `e2fe6098-fa0c-421e-8985-ff63372212e6`
+PASS - Entity ID: `e2fe6098-fa0c-421e-8985-ff63372212e6`
 
 ---
 
@@ -294,7 +294,7 @@ Target: < 3 seconds
 ```
 
 **Actual Results:**  
-✅ PASS - 301ms (well under target)
+PASS - 301ms (well under target)
 
 ---
 
@@ -306,11 +306,11 @@ Target: < 500ms
 
 | Endpoint | Expected (ms) | Actual | Status |
 |----------|---------------|--------|--------|
-| POST /register | 200-300 | TBD | ✅ |
-| POST /login | 200-300 | TBD | ✅ |
-| GET /auth/me | 100-150 | TBD | ✅ |
-| POST /entities | 150-250 | TBD | ✅ |
-| GET /tasks | 100-200 | TBD | ✅ |
+| POST /register | 200-300 | TBD | |
+| POST /login | 200-300 | TBD | |
+| GET /auth/me | 100-150 | TBD | |
+| POST /entities | 150-250 | TBD | |
+| GET /tasks | 100-200 | TBD | |
 
 ---
 
@@ -340,7 +340,7 @@ Test in:
 
 ---
 
-## 🔍 Test Checklist
+## Test Checklist
 
 ### Backend API Tests
 - [x] POST /api/auth/register (create user)
@@ -401,7 +401,7 @@ Test in:
 
 ---
 
-## 📊 Test Results Summary
+## Test Results Summary
 
 | Category | Pass | Fail | Notes |
 |----------|------|------|-------|
@@ -415,7 +415,7 @@ Test in:
 
 ---
 
-## 🐛 Known Issues
+## Known Issues
 
 (Will be updated during testing week)
 
@@ -425,16 +425,16 @@ Test in:
 
 ---
 
-## 📝 Test Sign-Off
+## Test Sign-Off
 
 - **Tester:** [Name]
 - **Date:** [Date]
 - **Result:** [ ] PASS [ ] FAIL
-- **Notes:** 
+- **Notes:**
 
 ---
 
-## 🚀 Deployment to Legal Review
+## Deployment to Legal Review
 
 Once testing completes (Oct 20):
 1. Share staging URL: https://my-llc-staging.info-eac.workers.dev

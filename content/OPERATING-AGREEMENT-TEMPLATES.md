@@ -7,7 +7,7 @@
 
 ---
 
-> # ⚠️ NOT LEGAL ADVICE — CONSIDER PROFESSIONAL REVIEW BEFORE SIGNING
+> # NOT LEGAL ADVICE — CONSIDER PROFESSIONAL REVIEW BEFORE SIGNING
 >
 > **Every operating agreement generated from these templates is a draft.** Using this
 > template does **not** create an attorney–client relationship. The generator
@@ -17,7 +17,7 @@
 > **Before anyone signs the generated document, consider having a licensed attorney**
 > in the state of organization review the completed draft against the user's ownership,
 > tax, and home-country facts. This is a recommendation, not a gate — the sections
-> flagged 🔴 in § 4 are the ones where a wrong or missing term creates real exposure.
+> flagged **High priority** in § 4 are the ones where a wrong or missing term creates real exposure.
 >
 > Do **not** present the output as "ready to sign" or "attorney-approved." Present it as
 > **"draft — review before signing."** The product logs this acknowledgment with a
@@ -332,7 +332,7 @@ Title: Sole Member
 Date: {{SIGNATURE_DATE}}
 
 **ACKNOWLEDGMENT — NOT REVIEWED BY COUNSEL**
-> ☐ I understand this is a **draft operating agreement** and that a licensed attorney
+> I understand this is a **draft operating agreement** and that a licensed attorney
 > should review it before I sign. *Logged at: [timestamp] · Template version: [v1.0]*
 
 ---
@@ -380,17 +380,17 @@ The banner in § 0 covers the whole document. These are the sections where a def
 
 | # | Section | Risk if wrong | Review level |
 |---|---|---|---|
-| 1 | **Art. 1.1–1.4** Formation / name / RA | Wrong formation date or non-compliant RA address → the OA references a company that isn't validly formed, or an RA that violates W.S. 17-29-113. | 🔴 **High priority** |
-| 2 | **Art. 4** Management / authority | Wrong management structure changes who can bind the company and who owes duties. | 🔴 **High priority** |
-| 3 | **Art. 5.3** Distribution limits | Distribution while insolvent can be clawed back and creates personal liability. | 🔴 **High priority** |
-| 4 | **Art. 6.5** Tax classification | Classification drives every federal filing obligation. Must match the EIN application and any Form 8832 already filed. | 🔴 **High priority** |
-| 5 | **Art. 7** Transfer restrictions | A defective restriction may be unenforceable, or may fail to prevent a second member. | 🔴 **High priority** |
-| 6 | **Art. 8.3** Winding-up waterfall | Paying members before creditors = personal exposure under the Act. | 🔴 **High priority** |
-| 7 | **Art. 10** Indemnification / exculpation | Over-broad exculpation may be void under W.S. 17-29-110(c); under-broad may expose the member. | 🟡 Review |
-| 8 | **Art. 11.1** Governing law | If the Act's internal-affairs choice of law is varied, the clause is void. | 🟡 Review |
-| 9 | **Signature block** | Must be executed by the correct party in the correct capacity. | 🟡 Review |
-| 10 | **Purpose (Art. 1.6)** | An overly narrow purpose can invalidate acts; an overly broad one may affect licensing. | 🟡 Review |
-| 11 | **Boilerplate (Art. 2, 3, 11.2–11.7)** | Low risk, but still unreviewed. | 🟢 Low |
+| 1 | **Art. 1.1–1.4** Formation / name / RA | Wrong formation date or non-compliant RA address → the OA references a company that isn't validly formed, or an RA that violates W.S. 17-29-113. | **High priority** |
+| 2 | **Art. 4** Management / authority | Wrong management structure changes who can bind the company and who owes duties. | **High priority** |
+| 3 | **Art. 5.3** Distribution limits | Distribution while insolvent can be clawed back and creates personal liability. | **High priority** |
+| 4 | **Art. 6.5** Tax classification | Classification drives every federal filing obligation. Must match the EIN application and any Form 8832 already filed. | **High priority** |
+| 5 | **Art. 7** Transfer restrictions | A defective restriction may be unenforceable, or may fail to prevent a second member. | **High priority** |
+| 6 | **Art. 8.3** Winding-up waterfall | Paying members before creditors = personal exposure under the Act. | **High priority** |
+| 7 | **Art. 10** Indemnification / exculpation | Over-broad exculpation may be void under W.S. 17-29-110(c); under-broad may expose the member. | Review |
+| 8 | **Art. 11.1** Governing law | If the Act's internal-affairs choice of law is varied, the clause is void. | Review |
+| 9 | **Signature block** | Must be executed by the correct party in the correct capacity. | Review |
+| 10 | **Purpose (Art. 1.6)** | An overly narrow purpose can invalidate acts; an overly broad one may affect licensing. | Review |
+| 11 | **Boilerplate (Art. 2, 3, 11.2–11.7)** | Low risk, but still unreviewed. | Low |
 
 **Product implication.** The "download" button carries the `DRAFT — REVIEW BEFORE SIGNING`
 label and the § 0 banner travels with every generated copy (also inside the PDF/DOCX, not

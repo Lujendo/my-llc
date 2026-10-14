@@ -1,4 +1,4 @@
-# 🚨 LEGAL COMPLIANCE GATE — MANDATORY APPROVAL BEFORE SHIP
+# LEGAL COMPLIANCE GATE — MANDATORY APPROVAL BEFORE SHIP
 
 **Effective:** October 13, 2026  
 **Enforced By:** Legal Team + CEO  
@@ -72,7 +72,7 @@ Brief description of what the feature does and who uses it.
 
 Example:
 ```
-⚠️ LEGAL DISCLAIMER:
+LEGAL DISCLAIMER:
 This tool is NOT a substitute for professional tax advice.
 Review with a CPA/EA before filing.
 ```
@@ -108,7 +108,7 @@ Date: ________________
 
 ## REVIEW CHECKLIST BY FEATURE TYPE
 
-### ✅ IF GENERATING TAX FORMS (W-7, 1040-NR, etc.)
+### IF GENERATING TAX FORMS (W-7, 1040-NR, etc.)
 
 ```markdown
 LEGAL REVIEW CHECKLIST — TAX FORMS
@@ -141,14 +141,14 @@ Date: [Today]
     - Compliance checked with: ___________
 
 APPROVAL DECISION:
-[ ] APPROVED ✅
+[ ] APPROVED
 [ ] APPROVED WITH DISCLAIMERS (list: _______________)
 [ ] REJECTED (reason: _______________)
 
 Approved By: _________________ Date: _______
 ```
 
-### ✅ IF ANALYZING TREATIES
+### IF ANALYZING TREATIES
 
 ```markdown
 LEGAL REVIEW CHECKLIST — TREATY ANALYSIS
@@ -181,14 +181,14 @@ Date: [Today]
 [ ] No guarantees about treaty benefits acceptance
 
 APPROVAL DECISION:
-[ ] APPROVED ✅
+[ ] APPROVED
 [ ] APPROVED WITH DISCLAIMERS (list: _______________)
 [ ] REJECTED (reason: _______________)
 
 Approved By: _________________ Date: _______
 ```
 
-### ✅ IF DOING TAX CALCULATIONS (FBAR, FATCA, Credits)
+### IF DOING TAX CALCULATIONS (FBAR, FATCA, Credits)
 
 ```markdown
 LEGAL REVIEW CHECKLIST — TAX CALCULATIONS
@@ -203,8 +203,8 @@ Date: [Today]
     - Source publication: ____________
     - Verified date: ________
 [ ] Thresholds match current rules (2026)
-    - FBAR threshold: $10,000 USD ✓
-    - FATCA threshold: $200k (year-end) or $300k (any time) ✓
+    - FBAR threshold: $10,000 USD
+    - FATCA threshold: $200k (year-end) or $300k (any time)
     - Other: ________________
 [ ] Currency conversions transparent
     - [ ] Exchange rate source disclosed (e.g., "XE.com on Oct 13, 2026")
@@ -226,14 +226,14 @@ Date: [Today]
 [ ] Disclaimer present: "Calculations are estimates; verify with advisor"
 
 APPROVAL DECISION:
-[ ] APPROVED ✅
+[ ] APPROVED
 [ ] APPROVED WITH DISCLAIMERS (list: _______________)
 [ ] REJECTED (reason: _______________)
 
 Approved By: _________________ Date: _______
 ```
 
-### ✅ IF MANAGING ENTITIES (Operating Agreements, LLCs)
+### IF MANAGING ENTITIES (Operating Agreements, LLCs)
 
 ```markdown
 LEGAL REVIEW CHECKLIST — ENTITY MANAGEMENT
@@ -253,7 +253,7 @@ Date: [Today]
     - [ ] Amendments
     - [ ] Dissolution
 [ ] Template covers single-member LLCs (primary case)
-    - [ ] Single-member tested ✓
+    - [ ] Single-member tested
     - [ ] Multi-member possible: tested / not yet
 [ ] User is warned this is NOT legal advice
     - [ ] Disclaimer appears before template
@@ -270,7 +270,7 @@ Date: [Today]
     - [ ] Tax implications disclosed
 
 APPROVAL DECISION:
-[ ] APPROVED ✅
+[ ] APPROVED
 [ ] APPROVED WITH DISCLAIMERS (list: _______________)
 [ ] REJECTED (reason: _______________)
 
@@ -281,7 +281,7 @@ Approved By: _________________ Date: _______
 
 ## REJECTION SCENARIOS (Why Features Get Sent Back)
 
-### ❌ REJECTED: Tax Form Missing Required Field
+### REJECTED: Tax Form Missing Required Field
 ```
 Feature: W-7 Form Generator
 Reason: Form does not capture "Visa Number" (line 6c)
@@ -300,7 +300,7 @@ Fix Required:
 Timeline: 5 business days (blocking feature)
 ```
 
-### ❌ REJECTED: Treaty Analysis Overstates Benefits
+### REJECTED: Treaty Analysis Overstates Benefits
 ```
 Feature: Treaty Analyzer for Germany
 Reason: Claims disregarded entity gets treaty relief without flagging BZSt challenge
@@ -319,7 +319,7 @@ Fix Required:
 Timeline: 3 business days (blocking feature)
 ```
 
-### ❌ REJECTED: Calculation Missing Edge Case
+### REJECTED: Calculation Missing Edge Case
 ```
 Feature: FATCA Asset Threshold Calculator
 Reason: Does not handle mid-year asset acquisition
@@ -444,7 +444,7 @@ Result: Feature can ship IF disclaimers are added exactly as specified
 **Feature:** W-7 Form Generator  
 **Submitted:** Oct 20, 2026  
 **Approved:** Oct 23, 2026  
-**Status:** ✅ APPROVED WITH DISCLAIMERS  
+**Status:** APPROVED WITH DISCLAIMERS  
 **Approved By:** [Legal Team Lead], [Tax Advisor]  
 
 ## Issues Found & Resolved
@@ -454,10 +454,10 @@ Result: Feature can ship IF disclaimers are added exactly as specified
 
 ## Required Disclaimers (Add to UI Exactly As Written)
 ```
-⚠️ IMPORTANT: This W-7 is a template only. You must review it 
-carefully and verify all information with your CPA or tax advisor 
-before submitting to the IRS. Incomplete or incorrect forms will 
-be rejected. This platform is not responsible for IRS rejections 
+IMPORTANT: This W-7 is a template only. You must review it
+carefully and verify all information with your CPA or tax advisor
+before submitting to the IRS. Incomplete or incorrect forms will
+be rejected. This platform is not responsible for IRS rejections
 or penalties resulting from user errors.
 ```
 
@@ -469,16 +469,16 @@ or penalties resulting from user errors.
 5. User must print and mail manually (ensures human review)
 
 ## Approved Code
-- ✅ src/components/DocumentGenerator.tsx
-- ✅ src/worker/routes/documents.ts
-- ✅ src/worker/services/documentService.ts
+- src/components/DocumentGenerator.tsx
+- src/worker/routes/documents.ts
+- src/worker/services/documentService.ts
 
 ## Testing Verified
-- ✅ Single-member LLC (Andrea Lujendo scenario)
-- ✅ Multi-member LLC
-- ✅ Non-resident alien from Germany
-- ✅ Form exports correctly to PDF
-- ✅ All fields match IRS Form W-7 (Rev. 12-2024)
+- Single-member LLC (Andrea Lujendo scenario)
+- Multi-member LLC
+- Non-resident alien from Germany
+- Form exports correctly to PDF
+- All fields match IRS Form W-7 (Rev. 12-2024)
 
 ## Ship Decision
 **STATUS: READY TO SHIP**
@@ -528,12 +528,12 @@ If changes found:
 
 **This gate exists to:**
 
-✅ Prevent bad forms from shipping → No IRS rejections  
-✅ Prevent bad treaty advice → No double taxation surprises  
-✅ Prevent calculation errors → No penalties for users  
-✅ Keep disclaimers strong → Liability protection for company  
-✅ Track all decisions → Audit trail for defense  
-✅ Catch law changes → Quarterly monitoring catches updates  
+Prevent bad forms from shipping → No IRS rejections  
+Prevent bad treaty advice → No double taxation surprises  
+Prevent calculation errors → No penalties for users  
+Keep disclaimers strong → Liability protection for company  
+Track all decisions → Audit trail for defense  
+Catch law changes → Quarterly monitoring catches updates  
 
 **It requires:**
 - Legal team bandwidth (5-10 hours per feature)

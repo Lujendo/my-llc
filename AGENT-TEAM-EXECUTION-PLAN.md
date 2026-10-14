@@ -1,4 +1,4 @@
-# 🛡️ AGENT TEAM LEGAL EXECUTION PLAN
+# AGENT TEAM LEGAL EXECUTION PLAN
 
 **MY-LLC Dashboard → Production with Integrated Legal Expertise**
 
@@ -59,8 +59,8 @@ Fixes        │
 Nov 4–13 ────┤─ Production prep (infrastructure, monitoring, docs)
 Prod Prep    │
              │
-Nov 15 ──────┼─ 🚀 PRODUCTION LAUNCH
-🚀 LAUNCH    │
+Nov 15 ──────┼─ PRODUCTION LAUNCH
+LAUNCH       │
 ```
 
 ---
@@ -143,7 +143,7 @@ Each persona tests different tax scenarios:
 **Expected:** [What should happen]
 **Actual:** [What happens]
 **Agent To Review:** [federal_advisor_us | international_law | legal | etc]
-**Status:** 🔴 OPEN | 🟡 IN PROGRESS | 🟢 FIXED
+**Status:** OPEN | IN PROGRESS | FIXED
 ```
 
 **Sign-Off:** QA Lead (Oct 20, 4 PM)
@@ -176,22 +176,22 @@ Tax Positions:
 - All IRS-required fields included
 
 User Disclaimers (Proposed):
-⚠️ LEGAL DISCLAIMER:
+LEGAL DISCLAIMER:
 - This tool generates a W-7 form for educational purposes
 - Consult US tax professional (CPA/EA) before filing
 - IRS may reject if incomplete or incorrect
 - Company not responsible for penalties
 
 Edge Cases Tested:
-- Leap year (Feb 29) handling ✓
-- Non-US residence (0 days in US) ✓
-- Multiple entities (LLC + S-corp) ✓
-- Amended form ✓
+- Leap year (Feb 29) handling
+- Non-US residence (0 days in US)
+- Multiple entities (LLC + S-corp)
+- Amended form
 
 QA Test Results:
-- Italian Maria: Form generated correctly ✓
-- Canadian James: Form calculated correctly ✓
-- No known bugs ✓
+- Italian Maria: Form generated correctly
+- Canadian James: Form calculated correctly
+- No known bugs
 ```
 
 **Step 2: Coordinator Triages (Oct 22)**
@@ -211,20 +211,20 @@ Coordinator:
 - Are calculations correct (days in US, filing status)?
 - Are disclaimers sufficient (liability shielded)?
 - Any IRS compliance issues?
-- Decision: ✅ APPROVE | ⚠️ CHANGES NEEDED | ❌ REJECT
+- Decision: APPROVE | CHANGES NEEDED | REJECT
 
 Example review output:
 ```
 AGENT REVIEW: W-7 Form Generator
 By: federal_advisor_us
 Date: Oct 24, 2026
-Status: ✅ APPROVED (with disclaimer revision)
+Status: APPROVED (with disclaimer revision)
 
 Findings:
-✅ Form version current (IRS Rev. 12-2024)
-✅ All required fields present
-✅ Days-in-US calculation correct (IRC 7701(b))
-⚠️ Disclaimer needs addition: "May be rejected by IRS if incomplete"
+Form version current (IRS Rev. 12-2024)
+All required fields present
+Days-in-US calculation correct (IRC 7701(b))
+Disclaimer needs addition: "May be rejected by IRS if incomplete"
 
 Recommendation:
 Approved for production with disclaimer revision (see attached).
@@ -236,7 +236,7 @@ Signed: federal_advisor_us (digital signature)
 - Are disclaimers clear + readable?
 - Are liability limits sufficient (company protected)?
 - Does disclaimer comply with SaaS best practices?
-- Decision: ✅ APPROVE | ⚠️ REVISE | ❌ REJECT
+- Decision: APPROVE | REVISE | REJECT
 
 **Step 4: Decision & Archive (Oct 27)**
 
@@ -301,36 +301,36 @@ Oct 29–Nov 3: Final fixes (if any changes needed)
 
 **Before ANY feature launches, must pass all gates:**
 
-### Gate 1: Feature Submission ✅
+### Gate 1: Feature Submission
 - [ ] Feature spec complete
 - [ ] Test cases documented
 - [ ] Proposed disclaimers included
 - [ ] Edge cases identified
 
-### Gate 2: Agent Review ✅
+### Gate 2: Agent Review
 - [ ] Assigned agent reviews (2-5 days)
 - [ ] Decision: Approved, Changes, or Reject
 - [ ] Feedback documented
 - [ ] Archive stored
 
-### Gate 3: Disclaimer Approval ✅
+### Gate 3: Disclaimer Approval
 - [ ] legal agent approves (2-3 days)
 - [ ] Disclaimer language finalized
 - [ ] User can't skip acceptance
 
-### Gate 4: Testing Verification ✅
+### Gate 4: Testing Verification
 - [ ] QA test cases all pass
 - [ ] Edge cases handled
 - [ ] No known bugs
 - [ ] Performance acceptable
 
-### Gate 5: Audit Archive ✅
+### Gate 5: Audit Archive
 - [ ] All approvals documented
 - [ ] Decision log updated
 - [ ] Feature marked "legal-approved"
 - [ ] Stored in `/audit-archive/`
 
-**NO FEATURE SHIPS WITHOUT ALL 5 GATES ✅**
+**NO FEATURE SHIPS WITHOUT ALL 5 GATES **
 
 ---
 
@@ -370,59 +370,59 @@ Oct 29–Nov 3: Final fixes (if any changes needed)
 ### federal_advisor_us Sign-Off
 
 ```
-✅ W-7 form verified (current IRS version)
-✅ Operating Agreement verified (Wyoming compliance)
-✅ Checklist deadlines accurate (2026 filing dates)
-✅ FBAR/FATCA thresholds correct (if included)
-✅ No aggressive tax positions (conservative only)
-✅ Disclaimers sufficient (company protected)
-✅ Ready for production Nov 15
+W-7 form verified (current IRS version)
+Operating Agreement verified (Wyoming compliance)
+Checklist deadlines accurate (2026 filing dates)
+FBAR/FATCA thresholds correct (if included)
+No aggressive tax positions (conservative only)
+Disclaimers sufficient (company protected)
+Ready for production Nov 15
 ```
 
 ### international_law Sign-Off
 
 ```
-✅ Treaty articles cited correctly
-✅ Multiple treaty scenarios tested
-✅ Foreign tax credit explanation sound
-✅ No guaranteed treaty benefits (conservative)
-✅ PE rules explained accurately
-✅ Disclaimers cover treaty uncertainty
-✅ Ready for production Nov 15
+Treaty articles cited correctly
+Multiple treaty scenarios tested
+Foreign tax credit explanation sound
+No guaranteed treaty benefits (conservative)
+PE rules explained accurately
+Disclaimers cover treaty uncertainty
+Ready for production Nov 15
 ```
 
 ### commercialista_italiano Sign-Off
 
 ```
-✅ Italian user scenario tested (Maria)
-✅ CFC rules reflected (if applicable)
-✅ Italian GDPR compliance verified
-✅ Italian tax authority positions current
-✅ Disclaimers adequate for Italian context
-✅ Ready for production Nov 15
+Italian user scenario tested (Maria)
+CFC rules reflected (if applicable)
+Italian GDPR compliance verified
+Italian tax authority positions current
+Disclaimers adequate for Italian context
+Ready for production Nov 15
 ```
 
 ### steuerberater_de Sign-Off
 
 ```
-✅ German user scenario tested (Maria)
-✅ PE rules clear (does not claim PE)
-✅ German GDPR/NIS2 compliance verified
-✅ German tax authority (BZSt) positions current
-✅ Disclaimers adequate for German context
-✅ Ready for production Nov 15
+German user scenario tested (Maria)
+PE rules clear (does not claim PE)
+German GDPR/NIS2 compliance verified
+German tax authority (BZSt) positions current
+Disclaimers adequate for German context
+Ready for production Nov 15
 ```
 
 ### legal Sign-Off
 
 ```
-✅ All disclaimers approved (liability shielded)
-✅ Terms of Service finalized (liability caps sound)
-✅ Privacy Policy finalized (GDPR/CCPA compliant)
-✅ Professional review checkbox enforced
-✅ No unlicensed tax advice (educational only)
-✅ No false claims (forms not guaranteed)
-✅ Ready for production Nov 15
+All disclaimers approved (liability shielded)
+Terms of Service finalized (liability caps sound)
+Privacy Policy finalized (GDPR/CCPA compliant)
+Professional review checkbox enforced
+No unlicensed tax advice (educational only)
+No false claims (forms not guaranteed)
+Ready for production Nov 15
 ```
 
 **If ANY agent can't sign off → Launch delayed** (fix + re-review needed)
@@ -500,10 +500,10 @@ Agenda:
 Schedule: Jan 15, Apr 15, Jul 15, Oct 15
 
 What agents verify:
-- ✅ All IRS forms still current (any version changes?)
-- ✅ All treaties still valid (any new positions?)
-- ✅ All foreign authority positions current
-- ✅ User feedback reviewed (any compliance complaints?)
+- All IRS forms still current (any version changes?)
+- All treaties still valid (any new positions?)
+- All foreign authority positions current
+- User feedback reviewed (any compliance complaints?)
 
 Deliverable: Compliance Update Report (archived)
 
@@ -538,41 +538,41 @@ Full legal audit:
 
 ## SUCCESS CRITERIA FOR LAUNCH
 
-✅ **Legal:** All features approved by agent team  
-✅ **Tax:** All positions verified by federal_advisor_us  
-✅ **International:** Treaty analysis verified by international_law  
-✅ **SaaS:** Disclaimers + ToS approved by legal  
-✅ **Archive:** All decisions documented + stored  
-✅ **Infrastructure:** Production ready + monitored  
-✅ **Users:** Can sign up + use dashboard  
+**Legal:** All features approved by agent team  
+**Tax:** All positions verified by federal_advisor_us  
+**International:** Treaty analysis verified by international_law  
+**SaaS:** Disclaimers + ToS approved by legal  
+**Archive:** All decisions documented + stored  
+**Infrastructure:** Production ready + monitored  
+**Users:** Can sign up + use dashboard  
 
-**IF ALL ✅:** Launch Nov 15  
-**IF ANY ❌:** Delay + fix + re-review  
+**IF ALL :** Launch Nov 15  
+**IF ANY :** Delay + fix + re-review  
 
 ---
 
 ## NEXT STEPS (Immediate)
 
 **TODAY (Oct 13):**
-1. ✅ Coordinator distributes this plan to all agents
-2. ✅ Coordinator shares FEATURE-LEGAL-REVIEW-FRAMEWORK.md
-3. ✅ Coordinator shares SAAS-TESTING-CHECKLIST.md
-4. ✅ QA team starts testing Oct 16
+1. Coordinator distributes this plan to all agents
+2. Coordinator shares FEATURE-LEGAL-REVIEW-FRAMEWORK.md
+3. Coordinator shares SAAS-TESTING-CHECKLIST.md
+4. QA team starts testing Oct 16
 
 **Oct 15:**
-1. ✅ Dev team prepares feature submission packages
-2. ✅ Coordinator confirms submission template ready
+1. Dev team prepares feature submission packages
+2. Coordinator confirms submission template ready
 
 **Oct 21:**
-1. ✅ Feature submissions begin (W-7, Operating Agreement)
-2. ✅ Agents start reviews (5-7 day SLA)
+1. Feature submissions begin (W-7, Operating Agreement)
+2. Agents start reviews (5-7 day SLA)
 
 **Oct 27:**
-1. ✅ Reviews complete, decisions documented
-2. ✅ Archive system populated
+1. Reviews complete, decisions documented
+2. Archive system populated
 
 **Nov 15:**
-1. 🚀 PRODUCTION LAUNCH (all gates passed)
+1. PRODUCTION LAUNCH (all gates passed)
 
 ---
 
@@ -591,12 +591,12 @@ Full legal audit:
 
 **This plan launches MY-LLC Dashboard with expert legal oversight using your internal agent team.**
 
-- ✅ No external hiring delay
-- ✅ Leverages existing expertise
-- ✅ Cost-effective ($10k vs $150k)
-- ✅ Regulatory defense (full audit trail)
-- ✅ Scalable (same process for Phase 2+)
-- ✅ Tight timeline (33 days, achievable)
+- No external hiring delay
+- Leverages existing expertise
+- Cost-effective ($10k vs $150k)
+- Regulatory defense (full audit trail)
+- Scalable (same process for Phase 2+)
+- Tight timeline (33 days, achievable)
 
 **The agent team is your competitive advantage. Use it.**
 
@@ -604,6 +604,6 @@ Full legal audit:
 
 **Document:** AGENT-TEAM-EXECUTION-PLAN.md  
 **Created:** October 13, 2026  
-**Status:** 🟢 READY FOR EXECUTION  
+**Status:** READY FOR EXECUTION  
 **Launch:** November 15, 2026 (33 days)
 

@@ -45,7 +45,7 @@
 
 ## Block 3 — Professional‑review acknowledgment (checkbox)
 
-> ☐ **I understand that:** this tool only prepares a document; it does not give tax or legal advice and it does not file for me. A qualified tax professional should review my situation and my completed form **before** I sign and submit it. **I am responsible** for the accuracy of the information and for filing my form.
+> **I understand that:** this tool only prepares a document; it does not give tax or legal advice and it does not file for me. A qualified tax professional should review my situation and my completed form **before** I sign and submit it. **I am responsible** for the accuracy of the information and for filing my form.
 >
 > *Logged at: [timestamp] · Disclaimer version: [v1.0]*
 

@@ -2,7 +2,7 @@
 
 ## Status
 
-**Priority 1 Routes: ✅ COMPLETE**  
+**Priority 1 Routes: COMPLETE**  
 All authentication, entity management, and task tracking routes implemented and tested locally.
 
 ## Architecture
@@ -69,11 +69,11 @@ curl -X POST http://localhost:8787/api/auth/login \
 
 ## Security
 
-✅ **Auth**: JWT tokens required on all protected routes  
-✅ **Input Validation**: All inputs validated before DB queries  
-✅ **SQL Injection Prevention**: Parameterized queries only  
-✅ **Authorization**: Users can only access their own entities/tasks  
-✅ **Error Handling**: Errors logged, safe responses returned  
+**Auth**: JWT tokens required on all protected routes  
+**Input Validation**: All inputs validated before DB queries  
+**SQL Injection Prevention**: Parameterized queries only  
+**Authorization**: Users can only access their own entities/tasks  
+**Error Handling**: Errors logged, safe responses returned  
 
 ## Testing
 

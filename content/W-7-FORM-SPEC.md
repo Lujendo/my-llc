@@ -5,7 +5,7 @@
 **Author:** Federal Advisor (US) — MY-LLC Dashboard
 **Scope:** Exact field mapping for a print-ready Form W-7 generator. No application code. Research + authoring only.
 
-> ⚠️ **Verify before build.** The IRS revises the W-7 each December. A new revision changes line labels and can add/remove fields. Re-check the Rev. date on irs.gov before every release and re-map if it changed.
+> **Verify before build.** The IRS revises the W-7 each December. A new revision changes line labels and can add/remove fields. Re-check the Rev. date on irs.gov before every release and re-map if it changed.
 
 ---
 
